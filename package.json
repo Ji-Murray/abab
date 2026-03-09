@@ -1,0 +1,14 @@
+{
+  "name": "aba-aba-backend",
+  "version": "1.0.0",
+  "description": "Simple Node.js backend for 阿巴阿巴互联网集团搞笑官网投递邮件",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.13"
+  }
+}
+

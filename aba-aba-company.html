@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>阿巴阿巴互联网集团 - 官方搞笑网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #f9fafb;
+      --card: #ffffff;
+      --card-soft: #ffffff;
+      --accent: #ff6a00;
+      --accent-soft: rgba(255, 122, 0, 0.08);
+      --accent-2: #ff9f1a;
+      --text-main: #1f2933;
+      --text-sub: #6b7280;
+      --border-soft: #e5e7eb;
+      --danger: #e53935;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-strong: 0 18px 60px rgba(15, 23, 42, 0.18);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0, #f5f5f7 35%, #eef2f7 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+    }
+
+    /* 顶部导航（阿里风：白底 + 橙色主色） */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: rgba(255, 122, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-link.nav-cta {
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.45);
+    }
+
+    .nav-link.nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(255, 122, 0, 0.55);
+    }
+
+    /* 首页 Hero 区 */
+    .hero {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.6fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 4px 12px 4px 4px;
+      border: 1px solid rgba(255, 166, 0, 0.25);
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.96),
+        rgba(255, 246, 233, 0.96)
+      );
+      font-size: 11px;
+      color: #f97316;
+      margin-bottom: 14px;
+    }
+
+    .eyebrow-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(255, 122, 0, 0.12);
+      color: #ea580c;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-title {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1.18;
+      margin-bottom: 14px;
+      color: #111827;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #ff6a00, #f97316);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-sub);
+      max-width: 480px;
+      margin-bottom: 18px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 11px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: rgba(255, 255, 255, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-sub);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 8px 18px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+      color: var(--text-main);
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6a00, #ff9214);
+      border: none;
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 14px 32px rgba(249, 115, 22, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(249, 115, 22, 0.65);
+    }
+
+    .btn-outline:hover {
+      background: #f9fafb;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-note span {
+      color: #ea580c;
+    }
+
+    /* 右侧卡片：白卡 + 淡橙渐变 */
+    .hero-card {
+      border-radius: 26px;
+      background: radial-gradient(circle at 0 0, #ffffff 0, #fff7ed 55%);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: var(--shadow-strong);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .pill-status {
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(254, 215, 170, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #22c55e, #16a34a);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    .hero-card-title {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .hero-chat {
+      margin-top: 8px;
+      padding: 10px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      max-height: 260px;
+      overflow: hidden;
+      font-size: 12px;
+    }
+
+    .hc-row {
+      display: flex;
+      
+    }
+
+    .hc-row.bot {
+      justify-content: flex-start;
+    }
+
+    .hc-row.user {
+      justify-content: flex-end;
+    }
+
+    .hc-msg {
+      max-width: 80%;
+      padding: 7px 10px;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .hc-msg.bot {
+      background: #f9fafb;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      color: var(--text-sub);
+      border-bottom-left-radius: 3px;
+    }
+
+    .hc-msg.user {
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      border-bottom-right-radius: 3px;
+    }
+
+    .hc-meta {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.7);
+      margin-top: 2px;
+    }
+
+    .hc-input {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(229, 231, 235, 0.9);
+    }
+
+    .hc-input input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 11px;
+    }
+
+    .hc-input input::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    .hc-send {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(249, 115, 22, 0.12);
+      color: #ea580c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .hero-card-floating {
+      position: absolute;
+      right: 12px;
+      top: 70%;
+      transform: translateY(-50%);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(254, 215, 170, 0.9);
+      padding: 8px 10px;
+      font-size: 11px;
+      box-shadow: var(--shadow-soft);
+      max-width: 180px;
+    }
+
+    /* 公共区块 */
+    section {
+      margin-top: 54px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: right;
+      max-width: 320px;
+    }
+
+    /* 关于我们 */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 2.1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card-tagline {
+      font-size: 12px;
+      color: #f97316;
+      margin-bottom: 8px;
+    }
+
+    .bullet-list {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: 6px;
+      padding-left: 16px;
+    }
+
+    .bullet-list li {
+      margin-bottom: 4px;
+    }
+
+    /* 产品宇宙 */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 12px 12px 10px;
+      font-size: 12px;
+    }
+
+    .product-label {
+      font-size: 10px;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .product-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .product-pill {
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: #f9fafb;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    /* 公司文化 */
+    .culture-grid {
+      display: grid;
+      grid-template-columns: 2.4fr 2.2fr;
+      gap: 16px;
+    }
+
+    .culture-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .culture-tag {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px dashed rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+    }
+
+    .culture-list {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 4px;
+      padding-left: 16px;
+    }
+
+    .culture-list li {
+      margin-bottom: 4px;
+    }
+
+    .culture-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(255, 122, 0, 0.08);
+      color: #ea580c;
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+
+    /* 招聘区 */
+    .jobs-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 2.4fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .jobs-list {
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 10px 12px;
+      box-shadow: var(--shadow-soft);
+      max-height: 320px;
+      overflow-y: auto;
+      font-size: 12px;
+    }
+
+    .job-item {
+      border-radius: 12px;
+      padding: 8px 9px;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      background: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .job-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .job-tag {
+      border-radius: 999px;
+      padding: 2px 6px;
+      font-size: 10px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      color: var(--text-sub);
+    }
+
+    .job-meta {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .job-skills {
+      margin-top: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .job-skill-pill {
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: #f9fafb;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .job-footnote {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 6px;
+    }
+
+    .form-card {
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+      font-size: 12px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 9px;
+    }
+
+    label {
+      font-size: 11px;
+      color: rgba(55, 65, 81, 0.9);
+    }
+
+    label span.req {
+      color: var(--danger);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      border-radius: 9px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+      padding: 6px 9px;
+      color: var(--text-main);
+      outline: none;
+      font-size: 12px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #fb923c;
+      box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.4);
+      background: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+      max-height: 180px;
+    }
+
+    .form-hint {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .form-actions {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .form-legal {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.9);
+      max-width: 220px;
+    }
+
+    .btn-submit {
+      border-radius: 999px;
+      padding: 8px 16px;
+      border: none;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 14px 32px rgba(249, 115, 22, 0.55);
+      transition: all 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(249, 115, 22, 0.65);
+    }
+
+    /* 联系我们 & 页脚 */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 2.1fr);
+      gap: 18px;
+      font-size: 12px;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 6px;
+    }
+
+    .contact-list li {
+      margin-bottom: 4px;
+      color: var(--text-sub);
+    }
+
+    .contact-list span.label {
+      color: rgba(55, 65, 81, 0.9);
+      margin-right: 4px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      background: #ffffff;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .footnote {
+      margin-top: 26px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.8);
+      text-align: center;
+    }
+
+    .footnote span {
+      color: #ff6a00;
+    }
+
+    /* 投递成功 / 失败提示 */
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      max-width: 320px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.6;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      z-index: 50;
+    }
+
+    .toast-success {
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .toast-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+    }
+
+    .toast-icon {
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .toast-content-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .toast-close {
+      margin-left: auto;
+      cursor: pointer;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    /* 响应式 */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .about-grid,
+      .culture-grid,
+      .jobs-layout,
+      .contact-grid,
+      .products-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .hero-title {
+        font-size: 26px;
+      }
+
+      .products-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">A</div>
+        <div>
+          <div class="brand-text-main">阿巴阿巴互联网集团</div>
+          <div class="brand-text-sub">Abba Abba Internet Holdings · 永远在开会</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="aba-aba-company.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link">关于阿巴</a>
+        <a href="products.html" class="nav-link">产品宇宙</a>
+        <a href="careers.html" class="nav-link">加入我们</a>
+        <a href="contact.html" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <!-- Hero -->
+    <section aria-label="阿巴阿巴首页">
+      <div class="hero">
+        <div>
+          <div class="hero-eyebrow">
+            <div class="eyebrow-pill">
+              <span>·</span> 互联网头部「阿巴驱动」大厂
+            </div>
+            <span>估值：董事会阿巴完再说</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="highlight">阿巴阿巴互联网集团</span><br />
+            专注用 PPT 和 OKR 改变世界
+          </h1>
+          <p class="hero-subtitle">
+            在这里，我们用最严肃的面孔，做最离谱的互联网产品。  
+            每一行代码都在问灵魂拷问：这玩意儿真的有人用吗？
+          </p>
+
+          <div class="hero-badges">
+            <div class="badge">
+              <span class="badge-dot"></span>
+              996 友好型 · 只在日历上存在
+            </div>
+            <div class="badge">年会预算全部用来抽一台旧笔记本</div>
+            <div class="badge">一线互联网大厂认证：自封</div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="scrollToSection('jobs')">
+              我要加入阿巴大厂
+              <span>→</span>
+            </button>
+            <button class="btn btn-outline" onclick="scrollToSection('about')">
+              先听你阿巴两句
+            </button>
+          </div>
+
+          <div class="hero-note">
+            <span>※</span> 本网站为搞笑用途，无任何实际招聘效力。  
+            如果你真的投了简历，我们会郑重地截图发朋友圈。
+          </div>
+        </div>
+
+        <!-- 右侧改为「大厂体验看板」而不是聊天框 -->
+        <aside class="hero-card" aria-label="阿巴阿巴大厂体验看板">
+          <div class="hero-card-header">
+            <div class="pill-status">
+              <span class="pill-status-dot"></span>
+              阿巴阿巴 · 大厂体验总览
+            </div>
+            <div class="hero-card-title">一句话概括：严肃业务，认真搞笑</div>
+          </div>
+          <div class="hero-chat">
+            <div class="hc-row bot">
+              <div class="hc-msg bot">
+                <strong>办公城市</strong><br />
+                北京 · 上海 · 广州 · 深圳 · 杭州  
+                （以及所有精神上向往互联网的角落）
+              </div>
+            </div>
+            <div class="hc-row bot">
+              <div class="hc-msg bot">
+                <strong>主要业务</strong><br />
+                · 互联网整活与严肃 PPT 生产<br />
+                · 阿巴驱动的虚构产品孵化<br />
+                · 为全体打工人提供情绪价值
+              </div>
+            </div>
+            <div class="hc-row bot">
+              <div class="hc-msg bot">
+                <strong>加入方式</strong><br />
+                校招 / 实习通道现已同步开放，  
+                统一薪资参考：100k/月 × 20 薪（想象空间无限）。
+              </div>
+            </div>
+          </div>
+          <div class="hero-card-floating">
+            想要体验「互联网大厂」的全部想象，  
+            从这里出发：先逛逛，再决定要不要来阿巴。
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 首页快捷入口：引导到各个子页面 -->
+    <section>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">阿巴一图流 · 想看啥点哪儿</h2>
+          <p class="section-sub">Quick Links · 详细介绍请移步对应页面</p>
+        </div>
+      </div>
+      <div class="products-grid">
+        <a href="about.html" class="product-card" style="text-decoration:none;">
+          <div class="product-label">了解我们</div>
+          <div class="product-name">关于阿巴阿巴</div>
+          <p>
+            公司故事、价值观和日常整活方式，都在这里慢慢阿巴给你听。
+          </p>
+        </a>
+        <a href="products.html" class="product-card" style="text-decoration:none;">
+          <div class="product-label">看看产品</div>
+          <div class="product-name">阿巴产品宇宙</div>
+          <p>
+            那些听起来很离谱、但说不定哪天就真的会做出来的互联网产品。
+          </p>
+        </a>
+        <a href="careers.html" class="product-card" style="text-decoration:none;">
+          <div class="product-label">加入我们</div>
+          <div class="product-name">阿巴招聘中心</div>
+          <p>
+            高级阿巴工程师、首席摸鱼官、官方吐槽官等岗位虚位以待（字面意义上）。
+          </p>
+        </a>
+      </div>
+      <div class="footnote">
+        想直接找我们唠两句？请前往 <strong><a href="contact.html">联系我们页面</a></strong>。  
+        首页就负责一个任务：让你知道阿巴阿巴大概是个什么抽象东西。
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        window.scrollTo({
+          top: el.offsetTop - 70,
+          behavior: "smooth",
+        });
+      }
+    }
+
+    // 根据 URL 参数展示投递成功 / 失败提示
+    (function () {
+      const params = new URLSearchParams(window.location.search || "");
+      let type = "";
+      if (params.get("applySuccess") === "1") type = "success";
+      if (params.get("applyError") === "1") type = "error";
+      if (!type) return;
+
+      const toast = document.createElement("div");
+      toast.className = "toast " + (type === "success" ? "toast-success" : "toast-error");
+
+      const icon = document.createElement("div");
+      icon.className = "toast-icon";
+      icon.textContent = type === "success" ? "✔" : "✖";
+
+      const content = document.createElement("div");
+      const title = document.createElement("div");
+      title.className = "toast-content-title";
+      title.textContent = type === "success" ? "投递成功 · 阿巴 Offer 已发出" : "投递失败 · 邮件发送异常";
+      const body = document.createElement("div");
+      body.textContent =
+        type === "success"
+          ? "请查收你的邮箱，查看那封高薪阿巴 Offer（如未收到，多半是被邮箱吃掉了）。"
+          : "可能是邮箱 SMTP 配置问题，你可以稍后重试或检查后端日志。";
+      content.appendChild(title);
+      content.appendChild(body);
+
+      const close = document.createElement("div");
+      close.className = "toast-close";
+      close.textContent = "×";
+      close.onclick = () => {
+        toast.remove();
+      };
+
+      toast.appendChild(icon);
+      toast.appendChild(content);
+      toast.appendChild(close);
+      document.body.appendChild(toast);
+
+      // 3 秒后自动消失
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+
+      // 清掉地址栏中的参数，避免刷新重复弹
+      if (window.history && window.history.replaceState) {
+        const url = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, url);
+      }
+    })();
+  </script>
+</body>
+</html>
+

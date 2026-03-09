@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>联系我们 - 阿巴阿巴互联网集团</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #f9fafb;
+      --card: #ffffff;
+      --card-soft: #ffffff;
+      --accent: #ff6a00;
+      --accent-soft: rgba(255, 122, 0, 0.08);
+      --accent-2: #ff9f1a;
+      --text-main: #1f2933;
+      --text-sub: #6b7280;
+      --border-soft: #e5e7eb;
+      --danger: #e53935;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-strong: 0 18px 60px rgba(15, 23, 42, 0.18);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0, #f5f5f7 35%, #eef2f7 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: rgba(255, 122, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-link.nav-cta {
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.45);
+    }
+
+    .nav-link.nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(255, 122, 0, 0.55);
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: right;
+      max-width: 320px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 2.1fr);
+      gap: 18px;
+      font-size: 12px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 6px;
+    }
+
+    .contact-list li {
+      margin-bottom: 4px;
+      color: var(--text-sub);
+    }
+
+    .contact-list span.label {
+      color: rgba(55, 65, 81, 0.9);
+      margin-right: 4px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      background: #ffffff;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .footnote {
+      margin-top: 30px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">A</div>
+        <div>
+          <div class="brand-text-main">阿巴阿巴互联网集团</div>
+          <div class="brand-text-sub">Abba Abba Internet Holdings · 永远在开会</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="aba-aba-company.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link">关于阿巴</a>
+        <a href="products.html" class="nav-link">产品宇宙</a>
+        <a href="careers.html" class="nav-link">加入我们</a>
+        <a href="contact.html" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section>
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">联系我们 · 或者只是在心里想想</h1>
+          <p class="section-sub">Contact · 互联网大厂的想象总部</p>
+        </div>
+        <p class="section-note">
+          如果你愿意，把这个网站转发给一个也在互联网打工的朋友，  
+          这将是我们最认真收到的一份「反馈」。
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="card">
+          <div class="card-title">虚构总部信息</div>
+          <ul class="contact-list">
+            <li>
+              <span class="label">地址</span>互联网精神胜利街 404 号 ·
+              数据中心负一层 · 自习室角落
+            </li>
+            <li>
+              <span class="label">邮箱</span>hr@aba-aba.fake （能发，但没人看）
+            </li>
+            <li>
+              <span class="label">电话</span>+86-010-阿巴-阿巴（永远忙线中）
+            </li>
+            <li>
+              <span class="label">社交媒体</span>微博 / 小红书 / 抖音：@阿巴阿巴互联网集团
+            </li>
+          </ul>
+          <div class="chip-row">
+            <span class="chip">官方口号：有事没事，先阿巴两句</span>
+            <span class="chip">用户反馈：看完笑了，但又有点想哭</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">彩蛋说明</div>
+          <p>
+            这个网站是为了让你在紧绷的互联网生活里，  
+            至少，能有 5 分钟认真「无所事事」的时间。
+          </p>
+          <p style="margin-top:6px;">
+            如果你把页面拉到了这里，说明你已经完成了一次小小的「摸鱼成就」。  
+            欢迎截图发给你的同事，一起共建「阿巴宇宙」。
+          </p>
+          <div class="chip-row" style="margin-top:8px;">
+            <span class="chip">Made with 0 份融资，100% 好心情</span>
+            <span class="chip">Powered by 互联网人的集体吐槽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        © 2026 阿巴阿巴互联网集团 · 本页面不保证能联系上我们，但保证能让你稍微开心一点。
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>阿巴产品宇宙 - 阿巴阿巴互联网集团</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #f9fafb;
+      --card: #ffffff;
+      --card-soft: #ffffff;
+      --accent: #ff6a00;
+      --accent-soft: rgba(255, 122, 0, 0.08);
+      --accent-2: #ff9f1a;
+      --text-main: #1f2933;
+      --text-sub: #6b7280;
+      --border-soft: #e5e7eb;
+      --danger: #e53935;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-strong: 0 18px 60px rgba(15, 23, 42, 0.18);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0, #f5f5f7 35%, #eef2f7 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: rgba(255, 122, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-link.nav-cta {
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.45);
+    }
+
+    .nav-link.nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(255, 122, 0, 0.55);
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: right;
+      max-width: 320px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 12px 12px 10px;
+      font-size: 12px;
+    }
+
+    .product-label {
+      font-size: 10px;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .product-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .product-pill {
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: #f9fafb;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .footnote {
+      margin-top: 30px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .products-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">A</div>
+        <div>
+          <div class="brand-text-main">阿巴阿巴互联网集团</div>
+          <div class="brand-text-sub">Abba Abba Internet Holdings · 永远在开会</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="aba-aba-company.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link">关于阿巴</a>
+        <a href="products.html" class="nav-link">产品宇宙</a>
+        <a href="careers.html" class="nav-link">加入我们</a>
+        <a href="contact.html" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section>
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">阿巴产品宇宙</h1>
+          <p class="section-sub">Products · 解决问题只是附赠，主要是好玩</p>
+        </div>
+        <p class="section-note">
+          如果你发现这些产品听起来像是在乱编，  
+          那说明你已经完美理解了我们。
+        </p>
+      </div>
+
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-label">旗舰级产品</div>
+          <div class="product-name">「阿巴云会议」</div>
+          <p>
+            一款会自动生成会议纪要的会议工具，  
+            内容只有四个字：大家继续阿巴。
+          </p>
+          <div class="product-pill-row">
+            <div class="product-pill">支持 10 小时连轴开会</div>
+            <div class="product-pill">自动识别谁在摸鱼</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-label">协同办公</div>
+          <div class="product-name">「摸鱼协作云」</div>
+          <p>
+            专为上班时间精神出走设计的协作平台，  
+            统一管理你所有「假装很忙」的行为日志。
+          </p>
+          <div class="product-pill-row">
+            <div class="product-pill">一键生成工作日报</div>
+            <div class="product-pill">智能检测老板靠近</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-label">AI 系列</div>
+          <div class="product-name">「OKR 生成大师」</div>
+          <p>
+            输入一个模糊想法，AI 自动为你生成  
+            「看起来超厉害、实际上不知所云」的年度 OKR。
+          </p>
+          <div class="product-pill-row">
+            <div class="product-pill">支持一键对齐集团战略</div>
+            <div class="product-pill">自动补充无意义形容词</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footnote">
+      © 2026 阿巴阿巴互联网集团 · 如果这些产品真的上线了，那一定是宇宙对我们的误会。
+    </div>
+  </main>
+</body>
+</html>
+

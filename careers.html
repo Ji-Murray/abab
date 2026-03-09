@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>加入阿巴阿巴 - 阿巴阿巴互联网集团招聘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #f9fafb;
+      --card: #ffffff;
+      --card-soft: #ffffff;
+      --accent: #ff6a00;
+      --accent-soft: rgba(255, 122, 0, 0.08);
+      --accent-2: #ff9f1a;
+      --text-main: #1f2933;
+      --text-sub: #6b7280;
+      --border-soft: #e5e7eb;
+      --danger: #e53935;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-strong: 0 18px 60px rgba(15, 23, 42, 0.18);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0, #f5f5f7 35%, #eef2f7 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: rgba(255, 122, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-link.nav-cta {
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.45);
+    }
+
+    .nav-link.nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(255, 122, 0, 0.55);
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: right;
+      max-width: 320px;
+    }
+
+    .jobs-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 2.4fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .tab-switch {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      margin-top: 14px;
+      margin-bottom: 10px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+    }
+
+    .city-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+
+    .city-chip {
+      border-radius: 999px;
+      padding: 3px 9px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .city-chip.active {
+      border-color: #fb923c;
+      color: #b45309;
+      background: rgba(251, 146, 60, 0.12);
+    }
+
+    .jobs-list {
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 10px 12px;
+      box-shadow: var(--shadow-soft);
+      max-height: 360px;
+      overflow-y: auto;
+      font-size: 12px;
+    }
+
+    .job-item {
+      border-radius: 12px;
+      padding: 8px 9px;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      background: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .job-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .job-tag {
+      border-radius: 999px;
+      padding: 2px 6px;
+      font-size: 10px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      color: var(--text-sub);
+    }
+
+    .job-meta {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .job-skills {
+      margin-top: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .job-skill-pill {
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: #f9fafb;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .job-footnote {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 6px;
+    }
+
+    .form-card {
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+      font-size: 12px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 9px;
+    }
+
+    label {
+      font-size: 11px;
+      color: rgba(55, 65, 81, 0.9);
+    }
+
+    label span.req {
+      color: var(--danger);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      border-radius: 9px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+      padding: 6px 9px;
+      color: var(--text-main);
+      outline: none;
+      font-size: 12px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #fb923c;
+      box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.4);
+      background: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+      max-height: 180px;
+    }
+
+    .form-hint {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .form-actions {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .form-legal {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.9);
+      max-width: 220px;
+    }
+
+    .btn-submit {
+      border-radius: 999px;
+      padding: 8px 16px;
+      border: none;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 14px 32px rgba(249, 115, 22, 0.55);
+      transition: all 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(249, 115, 22, 0.65);
+    }
+
+    .footnote {
+      margin-top: 30px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .jobs-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">A</div>
+        <div>
+          <div class="brand-text-main">阿巴阿巴互联网集团</div>
+          <div class="brand-text-sub">Abba Abba Internet Holdings · 永远在开会</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="aba-aba-company.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link">关于阿巴</a>
+        <a href="products.html" class="nav-link">产品宇宙</a>
+        <a href="careers.html" class="nav-link">加入我们</a>
+        <a href="contact.html" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section>
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">加入阿巴阿巴 · 互联网大厂体验服</h1>
+          <p class="section-sub">Careers · 招聘一切会阿巴的你</p>
+        </div>
+        <p class="section-note">
+          所有岗位均为搞笑虚构，不构成真实招聘。  
+          但如果你真的想来，我们可以先加个好友慢慢阿巴。
+        </p>
+      </div>
+
+      <div class="tab-switch">
+        <button class="tab-btn active" data-tab="campus">校园招聘</button>
+        <button class="tab-btn" data-tab="intern">实习生招聘</button>
+      </div>
+
+      <div class="jobs-layout">
+        <div class="jobs-list" aria-label="校园招聘岗位（虚构）" id="campus-section">
+          <div class="city-filters" data-for="campus">
+            <div class="city-chip active" data-city="all">全部城市</div>
+            <div class="city-chip" data-city="北京">北京</div>
+            <div class="city-chip" data-city="上海">上海</div>
+            <div class="city-chip" data-city="广州">广州</div>
+            <div class="city-chip" data-city="深圳">深圳</div>
+            <div class="city-chip" data-city="杭州">杭州</div>
+          </div>
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">后端开发工程师 · 校招</div>
+              <div class="job-tag">技术研发 · 北京 / 杭州</div>
+            </div>
+            <div class="job-meta" data-cities="北京,杭州">
+              岗位类别：服务器 / 分布式 / 基础架构<br />
+              工作城市：北京 / 杭州 · 薪资：100k/月 × 20 薪
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">熟悉 Java / Go / Node.js 任一</span>
+              <span class="job-skill-pill">能把简单接口设计得很「大厂」</span>
+              <span class="job-skill-pill">对「高并发」三个字有信仰</span>
+            </div>
+          </div>
+
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">前端开发工程师 · 校招</div>
+              <div class="job-tag">技术研发 · 上海 / 深圳</div>
+            </div>
+            <div class="job-meta" data-cities="上海,深圳">
+              岗位类别：Web / H5 / 小程序<br />
+              工作城市：上海 / 深圳 · 薪资：100k/月 × 20 薪
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">React / Vue 会一种即可</span>
+              <span class="job-skill-pill">像素眼：能看出 1px 的偏差</span>
+              <span class="job-skill-pill">愿意为一个按钮纠结一下午</span>
+            </div>
+          </div>
+
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">产品经理 · 校招</div>
+              <div class="job-tag">产品&设计 · 广州 / 杭州</div>
+            </div>
+            <div class="job-meta" data-cities="广州,杭州">
+              岗位类别：C 端产品 / 工具产品<br />
+              工作城市：广州 / 杭州 · 薪资：100k/月 × 20 薪
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">会画原型，不上线也能讲故事</span>
+              <span class="job-skill-pill">能和任何人聊 2 小时需求</span>
+              <span class="job-skill-pill">熟悉互联网黑话（闭环 / 赋能）</span>
+            </div>
+          </div>
+
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">用户运营专员 · 校招</div>
+              <div class="job-tag">运营&市场 · 上海 / 深圳</div>
+            </div>
+            <div class="job-meta" data-cities="上海,深圳">
+              岗位类别：社群运营 / 内容运营<br />
+              工作城市：上海 / 深圳 · 薪资：100k/月 × 20 薪
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">会写让人想点赞的文案</span>
+              <span class="job-skill-pill">熟悉微博 / 小红书 / 抖音生态</span>
+              <span class="job-skill-pill">擅长把吐槽变成用户洞察</span>
+            </div>
+          </div>
+
+          <div class="job-footnote">
+            以上为 <strong>校园招聘</strong> 样例岗位，均按 100k/月 × 20 薪设计，  
+            覆盖北京 / 上海 / 广州 / 深圳 / 杭州等主流一线与新一线城市。
+          </div>
+        </div>
+
+        <div class="jobs-list" aria-label="实习生岗位（虚构）" id="intern-section" style="margin-top:16px; display:none;">
+          <div class="city-filters" data-for="intern">
+            <div class="city-chip active" data-city="all">全部城市</div>
+            <div class="city-chip" data-city="北京">北京</div>
+            <div class="city-chip" data-city="上海">上海</div>
+            <div class="city-chip" data-city="广州">广州</div>
+            <div class="city-chip" data-city="深圳">深圳</div>
+            <div class="city-chip" data-city="杭州">杭州</div>
+          </div>
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">前端研发实习生</div>
+              <div class="job-tag">技术研发 · 北京 / 上海</div>
+            </div>
+            <div class="job-meta" data-cities="北京,上海">
+              岗位类别：Web 前端 / 组件库<br />
+              工作城市：北京 / 上海 · 实习补贴参考：100k/月 × 20 薪（折算想象）
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">掌握 HTML / CSS / JS 基础</span>
+              <span class="job-skill-pill">对代码风格有强迫症</span>
+              <span class="job-skill-pill">能熟练使用浏览器 F12</span>
+            </div>
+          </div>
+
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">算法实习生（推荐&搜索）</div>
+              <div class="job-tag">技术研发 · 深圳 / 杭州</div>
+            </div>
+            <div class="job-meta" data-cities="深圳,杭州">
+              岗位类别：推荐算法 / 排序模型<br />
+              工作城市：深圳 / 杭州 · 实习补贴参考：100k/月 × 20 薪（折算想象）
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">会一点 Python / 数据处理</span>
+              <span class="job-skill-pill">了解基础机器学习/深度学习</span>
+              <span class="job-skill-pill">习惯用公式表达情绪</span>
+            </div>
+          </div>
+
+          <div class="job-item">
+            <div class="job-head">
+              <div class="job-title">产品运营实习生</div>
+              <div class="job-tag">运营&市场 · 广州 / 上海</div>
+            </div>
+            <div class="job-meta" data-cities="广州,上海">
+              岗位类别：新媒体 / 活动运营<br />
+              工作城市：广州 / 上海 · 实习补贴参考：100k/月 × 20 薪（折算想象）
+            </div>
+            <div class="job-skills">
+              <span class="job-skill-pill">有梗，能玩儿梗</span>
+              <span class="job-skill-pill">会做简单海报或 PPT</span>
+              <span class="job-skill-pill">热爱研究互联网热点</span>
+            </div>
+          </div>
+
+          <div class="job-footnote">
+            <strong>实习通道</strong> 面向在校同学开放，统一以 100k/月 × 20 薪为参考范本，  
+            真正的收益是：实习结束后，你能讲一辈子的互联网故事。
+          </div>
+        </div>
+
+        <div class="form-card" aria-label="在线投递（娱乐向）">
+          <form
+            id="aba-application-form"
+            action="http://localhost:3000/api/apply"
+            method="post"
+          >
+            <div class="form-row">
+              <label for="name">
+                昵称 <span class="req">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="请填一个你希望 HR 叫你的名字，比如「摸鱼小王子」"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label for="email">
+                邮箱 <span class="req">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="随便写一个邮箱也行，我们反正不会真的发 Offer"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label for="position">
+                心仪岗位 <span class="req">*</span>
+              </label>
+              <select id="position" name="position" required>
+                <option value="">请选择一个你最想阿巴的岗位</option>
+                <option>高级阿巴工程师</option>
+                <option>首席摸鱼官（CFO）</option>
+                <option>阿巴产品经理</option>
+                <option>官方吐槽官</option>
+                <option>自定义：我想自己发明一个岗位</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="link">作品 / 简历链接</label>
+              <input
+                type="text"
+                id="link"
+                name="link"
+                placeholder="GitHub、个人网站、B 站主页，或者一条你最得意的朋友圈也行"
+              />
+              <div class="form-hint">
+                不填也没关系，我们主要看你下面能阿巴出什么。
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="story">
+                请用一段话，介绍一下你「最能阿巴」的一件事 <span class="req">*</span>
+              </label>
+              <textarea
+                id="story"
+                name="story"
+                placeholder="例如：如何在连续 3 小时会议中发言 0 次还被夸「很有思考」……"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <div class="form-legal">
+                点击投递代表你已经认真阅读并完全忽略了所有有关「不负责任」的说明。
+              </div>
+              <button type="submit" class="btn-submit">
+                投递简历（假）
+                <span>📤</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div class="footnote">
+      © 2026 阿巴阿巴互联网集团 · 本页只负责让你「想来」，不保证真的招你来。
+    </div>
+  </main>
+
+  <script>
+    // Tab 切换：校招 / 实习
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const campusSection = document.getElementById("campus-section");
+    const internSection = document.getElementById("intern-section");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("data-tab");
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        if (tab === "campus") {
+          campusSection.style.display = "";
+          internSection.style.display = "none";
+        } else {
+          campusSection.style.display = "none";
+          internSection.style.display = "";
+        }
+      });
+    });
+
+    // 城市过滤：按照 data-cities 过滤岗位
+    function setupCityFilter(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      const filterBar = section.querySelector(".city-filters");
+      if (!filterBar) return;
+
+      const chips = filterBar.querySelectorAll(".city-chip");
+      const jobItems = section.querySelectorAll(".job-item");
+
+      chips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const city = chip.getAttribute("data-city");
+          chips.forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+
+          jobItems.forEach((item) => {
+            const meta = item.querySelector(".job-meta[data-cities]");
+            if (!meta) {
+              item.style.display = "";
+              return;
+            }
+            const cities = (meta.getAttribute("data-cities") || "").split(",");
+            if (city === "all" || cities.includes(city)) {
+              item.style.display = "";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      });
+    }
+
+    setupCityFilter("campus-section");
+    setupCityFilter("intern-section");
+  </script>
+</body>
+</html>
+

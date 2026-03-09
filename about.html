@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>关于阿巴阿巴 - 阿巴阿巴互联网集团</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #f9fafb;
+      --card: #ffffff;
+      --card-soft: #ffffff;
+      --accent: #ff6a00;
+      --accent-soft: rgba(255, 122, 0, 0.08);
+      --accent-2: #ff9f1a;
+      --text-main: #1f2933;
+      --text-sub: #6b7280;
+      --border-soft: #e5e7eb;
+      --danger: #e53935;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-strong: 0 18px 60px rgba(15, 23, 42, 0.18);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0, #f5f5f7 35%, #eef2f7 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+      border-color: rgba(255, 122, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-link.nav-cta {
+      background: linear-gradient(135deg, #ff6a00, #ff9f1a);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.45);
+    }
+
+    .nav-link.nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(255, 122, 0, 0.55);
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: right;
+      max-width: 320px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 2.1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card-tagline {
+      font-size: 12px;
+      color: #f97316;
+      margin-bottom: 8px;
+    }
+
+    .bullet-list {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: 6px;
+      padding-left: 16px;
+    }
+
+    .bullet-list li {
+      margin-bottom: 4px;
+    }
+
+    .culture-grid {
+      display: grid;
+      grid-template-columns: 2.4fr 2.2fr;
+      gap: 16px;
+    }
+
+    .culture-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .culture-tag {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px dashed rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+    }
+
+    .culture-list {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 4px;
+      padding-left: 16px;
+    }
+
+    .culture-list li {
+      margin-bottom: 4px;
+    }
+
+    .culture-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(255, 122, 0, 0.08);
+      color: #ea580c;
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+
+    .footnote {
+      margin-top: 30px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid,
+      .culture-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">A</div>
+        <div>
+          <div class="brand-text-main">阿巴阿巴互联网集团</div>
+          <div class="brand-text-sub">Abba Abba Internet Holdings · 永远在开会</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="aba-aba-company.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link">关于阿巴</a>
+        <a href="products.html" class="nav-link">产品宇宙</a>
+        <a href="careers.html" class="nav-link">加入我们</a>
+        <a href="contact.html" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section>
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">关于阿巴阿巴</h1>
+          <p class="section-sub">About Abba Abba · 一家很会说的互联网大厂</p>
+        </div>
+        <p class="section-note">
+          我们的使命是：用最复杂的技术方案，优雅地解决本来不存在的问题。
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="card">
+          <div class="card-title">公司定位：互联网头部「声音」大厂</div>
+          <div class="card-tagline">
+            我们专注输出声音，产品成功与否交给缘分。
+          </div>
+          <p>
+            阿巴阿巴互联网集团成立于某个大家都记不太清的年份，
+            由一群开会从不记笔记、写代码全靠手感的互联网人组成。
+          </p>
+          <ul class="bullet-list">
+            <li>总部坐落于「互联网精神胜利街 404 号」。</li>
+            <li>业务范围覆盖：聊天、摸鱼、画饼、写 OKR 等核心环节。</li>
+            <li>拥有自研「阿巴引擎」：输入需求，输出更多需求。</li>
+            <li>愿景：做全球最会阿巴的互联网公司，让每一次对话都不浪费字数。</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">我们在认真的搞笑，也在搞笑地认真</div>
+          <p>
+            在阿巴阿巴，我们相信「快乐是第一生产力」。
+            所以我们把官网做成了一个严肃中带着抽象的存在。
+          </p>
+          <ul class="bullet-list">
+            <li>我们有严谨的流程：需求评审 → 方案评审 → 阿巴评审。</li>
+            <li>我们崇尚高效沟通：一个字能说清绝不说两个字。</li>
+            <li>
+              我们奋斗的终极目标：让所有会议都可以被一句「阿巴阿巴」高效替代。
+            </li>
+          </ul>
+          <p style="margin-top:8px; color: var(--text-sub); font-size: 12px;">
+            注：本网站仅为娱乐作品，如有雷同，纯属巧合，若你当真，那我们当你在阿巴家了。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">公司文化 · 卷而不累 摆而不废</h2>
+          <p class="section-sub">Culture · 不严肃的文化，认真的写在这里</p>
+        </div>
+        <p class="section-note">
+          一个好的互联网大厂，必须要有一套听起来就很高端的「阿巴价值观」。
+        </p>
+      </div>
+
+      <div class="culture-grid">
+        <div class="card">
+          <div class="culture-pill">核心价值观 · ABBA</div>
+          <ul class="culture-list">
+            <li><strong>A</strong>lways Online：总是在线，实际是否工作另说。</li>
+            <li><strong>B</strong>riefly Clear：沟通要简短，能「阿巴」绝不长篇大论。</li>
+            <li><strong>B</strong>oldly摸鱼：在合适的时机，勇敢地休息和摸鱼。</li>
+            <li><strong>A</strong>bsolutely 不加班：至少在 PPT 上是这么写的。</li>
+          </ul>
+
+          <div class="culture-tags">
+            <span class="culture-tag">周会固定议题：本周大家都阿巴了什么</span>
+            <span class="culture-tag">鼓励在代码里写注释：// 这里先阿巴一个实现</span>
+            <span class="culture-tag">年终评优：最佳 PPT 阿巴奖、最会摸鱼奖</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">在阿巴阿巴的一天</div>
+          <ul class="culture-list">
+            <li>10:00：早会——确认昨天没做完的今天继续阿巴。</li>
+            <li>14:00：产品评审——讨论一个可能永远不会上线的功能。</li>
+            <li>17:30：临时会议——讨论为什么大家最近会议太多。</li>
+            <li>23:00：群里突然安静了——因为大家都把手机静音了。</li>
+          </ul>
+          <p style="margin-top:8px; font-size:12px; color: var(--text-sub);">
+            我们不追求完美的代码，只追求完美的段子。  
+            如果你会写代码又会讲笑话，那你已经是我们心中的 P9。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footnote">
+      © 2026 阿巴阿巴互联网集团 · 该页面专注介绍「我们是谁」，其它业务请移步上方导航。
+    </div>
+  </main>
+</body>
+</html>
+
