@@ -35,14 +35,22 @@ app.get("/contact", (req, res) => {
   res.sendFile(path.join(__dirname, "contact.html"));
 });
 
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+
+if (!SMTP_USER || !SMTP_PASS) {
+  console.warn(
+    "SMTP 未配置：请设置环境变量 SMTP_USER / SMTP_PASS，否则无法发送邮件。"
+  );
+}
+
 const transporter = nodemailer.createTransport({
   host: "mail.spacemail.com", // SpaceEmail 出站服务器
-  port: 465,                  // 使用 465 + SSL（也可以改成 587 + STARTTLS）
-  secure: true,               // 465 端口使用 SSL 加密
+  port: 587,                  // 使用 465 + SSL（也可以改成 587 + STARTTLS）
+  secure: false,               // 465 端口使用 SSL 加密
   auth: {
-    // 优先使用环境变量，避免明文写死在代码中
-    user: process.env.SMTP_USER ,
-    pass: process.env.SMTP_PASS 
+    user: SMTP_USER,
+    pass: SMTP_PASS
   }
 });
 
