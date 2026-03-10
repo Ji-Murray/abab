@@ -46,8 +46,8 @@ if (!SMTP_USER || !SMTP_PASS) {
 
 const transporter = nodemailer.createTransport({
   host: "mail.spacemail.com", // SpaceEmail 出站服务器
-  port: 587,                  // 使用 465 + SSL（也可以改成 587 + STARTTLS）
-  secure: false,               // 465 端口使用 SSL 加密
+  port: 465,                  // 使用 465 + SSL（也可以改成 587 + STARTTLS）
+  secure: true,               // 465 端口使用 SSL 加密
   auth: {
     user: SMTP_USER,
     pass: SMTP_PASS
