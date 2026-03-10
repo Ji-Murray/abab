@@ -36,13 +36,13 @@ app.get("/contact", (req, res) => {
 });
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.qq.com", // QQ 邮箱 SMTP 服务器
-  port: 465,
-  secure: true,
+  host: "mail.spacemail.com", // SpaceEmail 出站服务器
+  port: 465,                  // 使用 465 + SSL（也可以改成 587 + STARTTLS）
+  secure: true,               // 465 端口使用 SSL 加密
   auth: {
     // 优先使用环境变量，避免明文写死在代码中
-    user: process.env.SMTP_USER || "1434845299@qq.com",
-    pass: process.env.SMTP_PASS || "uytddpgxicehfgje"
+    user: process.env.SMTP_USER || "abab.limited@jzh666.store",
+    pass: process.env.SMTP_PASS || "@Apple0527"
   }
 });
 
@@ -134,7 +134,8 @@ app.post("/api/apply", async (req, res) => {
   `;
 
   const mailOptions = {
-    from: `"阿巴阿巴互联网集团 HR" <1434845299@qq.com>`, // 和上面 auth.user 一致
+    // 发件人必须与 SMTP 登录账号一致，否则服务端会 553 拒绝
+    from: `"阿巴阿巴互联网集团 HR" <${process.env.SMTP_USER || "abab.limited@jzh666.store"}>`,
     to: email,
     subject: `【阿巴阿巴】恭喜你被录用为：${displayPosition}`,
     text: plainText,
