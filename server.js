@@ -41,8 +41,8 @@ const transporter = nodemailer.createTransport({
   secure: true,               // 465 端口使用 SSL 加密
   auth: {
     // 优先使用环境变量，避免明文写死在代码中
-    user: process.env.SMTP_USER || "abab.limited@jzh666.store",
-    pass: process.env.SMTP_PASS || "@Apple0527"
+    user: process.env.SMTP_USER ,
+    pass: process.env.SMTP_PASS 
   }
 });
 
