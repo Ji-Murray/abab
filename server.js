@@ -44,13 +44,15 @@ if (!SMTP_USER || !SMTP_PASS) {
   );
 }
 
+// 使用 Gmail SMTP（推荐搭配应用专用密码）
+// 需要在 Gmail 账号里开启双重验证，并创建 "App password"
 const transporter = nodemailer.createTransport({
-  host: "mail.spacemail.com", // SpaceEmail 出站服务器
-  port: 465,                  // 使用 465 + SSL（也可以改成 587 + STARTTLS）
-  secure: true,               // 465 端口使用 SSL 加密
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // 465 端口使用 SSL
   auth: {
-    user: SMTP_USER,
-    pass: SMTP_PASS
+    user: SMTP_USER, // 例如 yourname@gmail.com
+    pass: SMTP_PASS  // Gmail 生成的应用专用密码，不是登录密码
   }
 });
 
