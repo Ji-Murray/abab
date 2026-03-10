@@ -2,6 +2,7 @@
 
 const express = require("express");
 const nodemailer = require("nodemailer");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +13,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // 静态文件：把当前目录下的页面通过 http://localhost:3000 访问
 app.use(express.static(__dirname));
+
+// 友好路由：不带 .html 后缀的访问
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "aba-aba-company.html"));
+});
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "about.html"));
+});
+
+app.get("/products", (req, res) => {
+  res.sendFile(path.join(__dirname, "products.html"));
+});
+
+app.get("/careers", (req, res) => {
+  res.sendFile(path.join(__dirname, "careers.html"));
+});
+
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "contact.html"));
+});
 
 const transporter = nodemailer.createTransport({
   host: "smtp.qq.com", // QQ 邮箱 SMTP 服务器
