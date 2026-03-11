@@ -454,6 +454,21 @@
         </p>
       </div>
 
+      <div
+        style="
+          margin-bottom: 14px;
+          padding: 10px 12px;
+          border-radius: 12px;
+          border: 1px solid #fed7aa;
+          background: #fff7ed;
+          font-size: 12px;
+          color: #9a3412;
+        "
+      >
+        今日阿巴 Offer 数量已全部发放完毕，请明天再来投递～  
+        <span style="color:#ea580c;font-weight:600;">感谢大家的热情与支持！</span>
+      </div>
+
       <div class="tab-switch">
         <button class="tab-btn active" data-tab="campus">校园招聘</button>
         <button class="tab-btn" data-tab="intern">实习生招聘</button>
@@ -749,6 +764,17 @@
 
     setupCityFilter("campus-section");
     setupCityFilter("intern-section");
+
+    // 全局暂停投递：前端直接拦截，不再请求后端
+    (function () {
+      const form = document.getElementById("aba-application-form");
+      if (!form) return;
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("今日阿巴 Offer 已全部发放完毕，请明天再来投递～\n感谢你的支持与参与！");
+        return false;
+      });
+    })();
   </script>
 </body>
 </html>

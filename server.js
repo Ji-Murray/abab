@@ -49,10 +49,46 @@ if (!SMTP_USER || !SMTP_PASS) {
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // 465 端口使用 SSL
+  secure: false, // 587 使用 STARTTLS（推荐云环境）
   auth: {
     user: SMTP_USER, // 例如 yourname@gmail.com
     pass: SMTP_PASS  // Gmail 生成的应用专用密码，不是登录密码
+  }
+});
+
+// Render/线上 SMTP 自检接口（建议配置 SMTP_TEST_TOKEN 防止被滥用）
+// 用法：POST /api/smtp-test  body: { to: "xxx@xxx.com", token?: "..." }
+app.post("/api/smtp-test", async (req, res) => {
+  const token = req.body?.token || req.query?.token;
+  const required = process.env.SMTP_TEST_TOKEN;
+  if (required && token !== required) {
+    return res.status(401).json({ ok: false, error: "Unauthorized" });
+  }
+
+  const to = (req.body?.to || "").trim();
+  if (!to) return res.status(400).json({ ok: false, error: "Missing `to`" });
+  if (!SMTP_USER || !SMTP_PASS) {
+    return res.status(500).json({ ok: false, error: "Missing SMTP_USER/SMTP_PASS" });
+  }
+
+  try {
+    await transporter.sendMail({
+      from: `"阿巴阿巴互联网集团 SMTP Test" <${SMTP_USER}>`,
+      to,
+      subject: "SMTP Test - 阿巴阿巴（Gmail）",
+      text: "如果你收到了这封邮件，说明 Render -> Gmail SMTP 通了。",
+      html:
+        '<div style="font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;padding:16px;background:#f5f5f7;">' +
+        '<div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;">' +
+        '<div style="font-size:14px;font-weight:700;color:#111827;">SMTP 测试成功</div>' +
+        '<div style="margin-top:6px;color:#6b7280;font-size:12px;line-height:1.6;">' +
+        "如果你收到了这封邮件，说明 Render 到 Gmail 的 SMTP 链路没有被拦截。" +
+        "</div></div></div>"
+    });
+    res.json({ ok: true });
+  } catch (e) {
+    console.error("SMTP TEST failed:", e);
+    res.status(500).json({ ok: false, error: String(e?.message || e), code: e?.code });
   }
 });
 
