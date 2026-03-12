@@ -654,12 +654,21 @@
               </label>
               <select id="position" name="position" required>
                 <option value="">请选择一个你最想阿巴的岗位</option>
-                <option>高级阿巴工程师</option>
-                <option>首席摸鱼官（CFO）</option>
-                <option>阿巴产品经理</option>
-                <option>官方吐槽官</option>
-                <option>自定义：我想自己发明一个岗位</option>
+                <!-- 选项由页面上方岗位列表动态生成 -->
               </select>
+              <div class="form-hint">岗位下拉框会跟随本页展示的岗位自动更新。</div>
+            </div>
+
+            <div class="form-row" id="custom-position-row" style="display:none;">
+              <label for="customPosition">
+                自定义岗位 <span class="req">*</span>
+              </label>
+              <input
+                type="text"
+                id="customPosition"
+                name="customPosition"
+                placeholder="例如：首席阿巴官 / PPT 架构师 / 会议纪要炼丹师"
+              />
             </div>
 
             <div class="form-row">
@@ -763,6 +772,43 @@
 
     setupCityFilter("campus-section");
     setupCityFilter("intern-section");
+
+    // 「心仪岗位」下拉框：根据页面上方岗位列表生成
+    (function () {
+      const select = document.getElementById("position");
+      if (!select) return;
+
+      const titles = Array.from(document.querySelectorAll(".job-item .job-title"))
+        .map((el) => (el.textContent || "").trim())
+        .filter(Boolean);
+
+      const unique = Array.from(new Set(titles));
+      unique.forEach((t) => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t;
+        select.appendChild(opt);
+      });
+
+      const customValue = "__custom__";
+      const customOpt = document.createElement("option");
+      customOpt.value = customValue;
+      customOpt.textContent = "自定义：我想自己发明一个岗位";
+      select.appendChild(customOpt);
+
+      const customRow = document.getElementById("custom-position-row");
+      const customInput = document.getElementById("customPosition");
+      function syncCustom() {
+        const isCustom = select.value === customValue;
+        if (customRow) customRow.style.display = isCustom ? "" : "none";
+        if (customInput) {
+          customInput.required = isCustom;
+          if (!isCustom) customInput.value = "";
+        }
+      }
+      select.addEventListener("change", syncCustom);
+      syncCustom();
+    })();
 
     // 表单直连后端，由后端负责校验/限流/offer 余量控制
   </script>

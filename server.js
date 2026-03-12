@@ -193,7 +193,7 @@ app.post("/api/smtp-test", async (req, res) => {
 });
 
 app.post("/api/apply", async (req, res) => {
-  const { name, email, position, story } = req.body;
+  const { name, email, position, customPosition, story } = req.body;
 
   // Offer 已发完：直接关闭投递
   if ((offerState?.offersRemaining ?? 0) <= 0) {
@@ -225,8 +225,14 @@ app.post("/api/apply", async (req, res) => {
   }
 
   const displayName = (name || "这位神秘阿巴友").trim();
-  const displayPosition = position || "你自创的传奇岗位";
-  const baseSalary = "100k/月 × 20 薪";
+  const customPos = String(customPosition || "").trim();
+  const displayPosition =
+    position === "__custom__"
+      ? (customPos || "你自创的传奇岗位")
+      : (String(position || "").trim() || "你自创的传奇岗位");
+
+  const salaryK = Math.floor(Math.random() * (10000 - 100 + 1)) + 100; // 100k ~ 10000k 整数
+  const baseSalary = `${salaryK}k/月 × 20 薪`;
 
   const plainText = [
     `${displayName} 你好：`,
