@@ -1203,7 +1203,7 @@
         const leftText = Number.isFinite(leftNum) ? `当前剩余 Offer：${leftNum}` : "";
         body.textContent =
           (isLimited
-            ? "邮件已发出，为字节/腾讯风格的限定版录用意向书，请查收邮箱。"
+            ? "邮件已发出，为限定版录用意向书，请查收邮箱。"
             : "请查收你的邮箱，查看那封高薪阿巴 Offer（如未收到，多半是被邮箱吃掉了）。") +
           (leftText ? `  ${leftText}` : "");
       } else if (params.get("applySoldOut") === "1") {
