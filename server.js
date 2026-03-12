@@ -16,7 +16,8 @@ app.use(express.json());
 // 静态文件：把当前目录下的页面通过 http://localhost:3000 访问
 app.use(express.static(__dirname));
 // 额外静态目录：暴露上一层的资源（如 CEO.jpg 等），统一挂在 /media 前缀下
-app.use("/media", express.static(path.join(__dirname, "..")));
+// 只暴露当前项目下的 media 目录
+app.use("/media", express.static(path.join(__dirname, "media")));
 
 // 友好路由：不带 .html 后缀的访问
 app.get("/", (req, res) => {
