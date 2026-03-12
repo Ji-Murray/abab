@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>阿巴云会议 - 阿巴阿巴互联网集团</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f7; --accent: #ff6a00; --accent-2: #ff9f1a;
+      --text-main: #1f2933; --text-sub: #6b7280; --border-soft: #e5e7eb;
+      --radius-lg: 18px; --radius-md: 12px; --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    .page-wrapper { max-width: 720px; margin: 0 auto; padding: 18px 16px 40px; }
+    .nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: rgba(255,255,255,0.96); border-bottom: 1px solid var(--border-soft); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 34px; height: 34px; border-radius: 16px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; }
+    .brand-text-main { font-size: 18px; font-weight: 700; color: #111827; }
+    .nav-links { display: flex; gap: 18px; font-size: 13px; }
+    .nav-link { padding: 6px 10px; border-radius: 999px; color: var(--text-sub); }
+    .nav-link:hover { color: var(--accent); }
+    .nav-link.nav-cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-weight: 600; border: none; }
+    .nav-burger { display: none; margin-left: auto; border: 1px solid var(--border-soft); background: #fff; border-radius: 12px; padding: 8px 10px; cursor: pointer; }
+    .nav-burger-lines { width: 18px; height: 12px; position: relative; display: inline-block; }
+    .nav-burger-lines span { position: absolute; left: 0; right: 0; height: 2px; border-radius: 999px; background: #111827; }
+    .nav-burger-lines span:nth-child(1) { top: 0; } .nav-burger-lines span:nth-child(2) { top: 5px; } .nav-burger-lines span:nth-child(3) { top: 10px; }
+    @media (max-width: 640px) {
+      .nav-inner { flex-wrap: wrap; align-items: center; }
+      .nav-links { display: none; width: 100%; margin-top: 10px; flex-direction: column; padding: 10px; border-radius: 16px; background: #fff; border: 1px solid var(--border-soft); }
+      body.nav-open .nav-links { display: flex; }
+      .nav-burger { display: inline-flex; }
+    }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
+    .back-link:hover { color: var(--accent); }
+    .product-hero { text-align: center; margin-bottom: 28px; }
+    .product-logo-large { width: 80px; height: 80px; border-radius: 22px; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800; color: #fff; box-shadow: 0 12px 28px rgba(0,0,0,0.15); background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .product-hero h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .product-hero .tagline { font-size: 14px; color: var(--text-sub); }
+    .product-body { background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border-soft); padding: 20px 22px; box-shadow: var(--shadow-soft); font-size: 14px; }
+    .product-body h2 { font-size: 16px; font-weight: 600; margin: 18px 0 8px; color: #111827; }
+    .product-body h2:first-child { margin-top: 0; }
+    .product-body p { margin-bottom: 10px; color: var(--text-sub); }
+    .product-body ul { margin: 8px 0 12px 20px; color: var(--text-sub); }
+    .product-body li { margin-bottom: 4px; }
+    .product-body .disclaimer { font-size: 12px; color: var(--text-sub); opacity: 0.9; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        <div class="brand-logo">A</div>
+        <span class="brand-text-main">阿巴阿巴互联网集团</span>
+      </a>
+      <button class="nav-burger" type="button" aria-label="打开菜单"><span class="nav-burger-lines"><span></span><span></span><span></span></span></button>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">首页</a>
+        <a href="/about" class="nav-link">关于阿巴</a>
+        <a href="/products" class="nav-link">产品宇宙</a>
+        <a href="/careers" class="nav-link">加入我们</a>
+        <a href="/contact" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page-wrapper">
+    <a href="/products" class="back-link">← 返回产品宇宙</a>
+    <div class="product-hero">
+      <div class="product-logo-large" aria-hidden="true">会</div>
+      <h1>阿巴云会议</h1>
+      <p class="tagline">旗舰级产品 · 开会从未如此省心（省的是别人的心）</p>
+    </div>
+    <div class="product-body">
+      <h2>产品简介</h2>
+      <p>阿巴云会议是阿巴阿巴互联网集团倾力打造的下一代会议协作平台。我们深刻理解当代打工人「会开得越多，话越少」的痛点，因此率先推出「智能会议纪要」功能：无论会议多长、话题多散，系统自动将全程浓缩为一句——<strong>大家继续阿巴</strong>。从此，再也不用担心记不住会议结论，因为本来也没有。</p>
+      <h2>核心能力</h2>
+      <ul>
+        <li><strong>10 小时连轴开会</strong>：支持从早站会到夜宵复盘的无缝衔接，日历上永远显示「会议中」。</li>
+        <li><strong>自动识别谁在摸鱼</strong>：基于摄像头与键盘声学分析，实时标注「疑似在刷手机」的参会人，方便主持人精准点名。</li>
+        <li><strong>一键导出会议金句</strong>：自动抓取「我们再拉齐一下」「这个需求很清晰」等高频废话，生成可分享的会议金句海报。</li>
+        <li><strong>会后待办自动生成</strong>：根据发言内容，自动创建「待讨论」「待同步」「待下次再聊」三条待办，完成率稳定在 0%。</li>
+      </ul>
+      <h2>适用场景</h2>
+      <p>周会、日报会、需求评审会、复盘会、跨部门对齐会、以及「我们开个会讨论一下为什么会议这么多」的元会议。本产品为虚构创作，如有雷同，说明你也在一家很会开会的公司。</p>
+      <p class="disclaimer">※ 本产品介绍纯属搞笑，不构成任何真实产品承诺。若贵司真的需要「大家继续阿巴」式会议纪要，建议直接群发这四个字，效果一致。</p>
+    </div>
+  </main>
+  <script>
+    (function(){
+      var btn=document.querySelector(".nav-burger"), links=document.querySelector(".nav-links");
+      if(!btn||!links)return;
+      btn.addEventListener("click",function(){ document.body.classList.toggle("nav-open"); });
+      links.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ document.body.classList.remove("nav-open"); }); });
+      window.addEventListener("resize",function(){ if(window.innerWidth>640) document.body.classList.remove("nav-open"); });
+    })();
+  </script>
+</body>
+</html>

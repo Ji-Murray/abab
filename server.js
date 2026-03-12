@@ -40,6 +40,30 @@ app.get("/contact", (req, res) => {
   res.sendFile(path.join(__dirname, "contact.html"));
 });
 
+app.get("/product-meeting", (req, res) => {
+  res.sendFile(path.join(__dirname, "product-meeting.html"));
+});
+
+app.get("/product-moyu", (req, res) => {
+  res.sendFile(path.join(__dirname, "product-moyu.html"));
+});
+
+app.get("/product-okr", (req, res) => {
+  res.sendFile(path.join(__dirname, "product-okr.html"));
+});
+
+app.get("/product-doc", (req, res) => {
+  res.sendFile(path.join(__dirname, "product-doc.html"));
+});
+
+app.get("/product-expand", (req, res) => {
+  res.sendFile(path.join(__dirname, "product-expand.html"));
+});
+
+app.get("/product-radio", (req, res) => {
+  res.sendFile(path.join(__dirname, "product-radio.html"));
+});
+
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
 const SMTP_HOST = process.env.SMTP_HOST || "smtp.gmail.com";

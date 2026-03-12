@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>摸鱼协作云 - 阿巴阿巴互联网集团</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f7; --accent: #ff6a00; --accent-2: #ff9f1a;
+      --text-main: #1f2933; --text-sub: #6b7280; --border-soft: #e5e7eb;
+      --radius-lg: 18px; --radius-md: 12px; --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    .page-wrapper { max-width: 720px; margin: 0 auto; padding: 18px 16px 40px; }
+    .nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: rgba(255,255,255,0.96); border-bottom: 1px solid var(--border-soft); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 34px; height: 34px; border-radius: 16px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; }
+    .brand-text-main { font-size: 18px; font-weight: 700; color: #111827; }
+    .nav-links { display: flex; gap: 18px; font-size: 13px; }
+    .nav-link { padding: 6px 10px; border-radius: 999px; color: var(--text-sub); }
+    .nav-link:hover { color: var(--accent); }
+    .nav-link.nav-cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-weight: 600; border: none; }
+    .nav-burger { display: none; margin-left: auto; border: 1px solid var(--border-soft); background: #fff; border-radius: 12px; padding: 8px 10px; cursor: pointer; }
+    .nav-burger-lines { width: 18px; height: 12px; position: relative; display: inline-block; }
+    .nav-burger-lines span { position: absolute; left: 0; right: 0; height: 2px; border-radius: 999px; background: #111827; }
+    .nav-burger-lines span:nth-child(1) { top: 0; } .nav-burger-lines span:nth-child(2) { top: 5px; } .nav-burger-lines span:nth-child(3) { top: 10px; }
+    @media (max-width: 640px) {
+      .nav-inner { flex-wrap: wrap; align-items: center; }
+      .nav-links { display: none; width: 100%; margin-top: 10px; flex-direction: column; padding: 10px; border-radius: 16px; background: #fff; border: 1px solid var(--border-soft); }
+      body.nav-open .nav-links { display: flex; }
+      .nav-burger { display: inline-flex; }
+    }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
+    .back-link:hover { color: var(--accent); }
+    .product-hero { text-align: center; margin-bottom: 28px; }
+    .product-logo-large { width: 80px; height: 80px; border-radius: 22px; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800; color: #fff; box-shadow: 0 12px 28px rgba(0,0,0,0.15); background: linear-gradient(135deg, #14b8a6, #0d9488); }
+    .product-hero h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .product-hero .tagline { font-size: 14px; color: var(--text-sub); }
+    .product-body { background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border-soft); padding: 20px 22px; box-shadow: var(--shadow-soft); font-size: 14px; }
+    .product-body h2 { font-size: 16px; font-weight: 600; margin: 18px 0 8px; color: #111827; }
+    .product-body h2:first-child { margin-top: 0; }
+    .product-body p { margin-bottom: 10px; color: var(--text-sub); }
+    .product-body ul { margin: 8px 0 12px 20px; color: var(--text-sub); }
+    .product-body li { margin-bottom: 4px; }
+    .product-body .disclaimer { font-size: 12px; color: var(--text-sub); opacity: 0.9; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        <div class="brand-logo">A</div>
+        <span class="brand-text-main">阿巴阿巴互联网集团</span>
+      </a>
+      <button class="nav-burger" type="button" aria-label="打开菜单"><span class="nav-burger-lines"><span></span><span></span><span></span></span></button>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">首页</a>
+        <a href="/about" class="nav-link">关于阿巴</a>
+        <a href="/products" class="nav-link">产品宇宙</a>
+        <a href="/careers" class="nav-link">加入我们</a>
+        <a href="/contact" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page-wrapper">
+    <a href="/products" class="back-link">← 返回产品宇宙</a>
+    <div class="product-hero">
+      <div class="product-logo-large" aria-hidden="true">摸</div>
+      <h1>摸鱼协作云</h1>
+      <p class="tagline">协同办公 · 假装很忙，从今天开始</p>
+    </div>
+    <div class="product-body">
+      <h2>产品简介</h2>
+      <p>摸鱼协作云是专为「上班时间精神出走」设计的下一代协作平台。我们相信，高效摸鱼不是不干活，而是让「看起来在干活」这件事变得可量化、可复盘、可写进周报。本产品统一管理你所有「假装很忙」的行为日志，包括但不限于：长时间盯着屏幕、频繁切屏、在文档里打无意义字符、以及把咖啡杯放在键盘旁边营造在岗氛围。</p>
+      <h2>核心能力</h2>
+      <ul>
+        <li><strong>一键生成工作日报</strong>：根据你的摸鱼行为数据，自动生成「今日完成需求评审对齐」「推进跨部门协作」等标准话术，支持一键复制到钉钉/飞书。</li>
+        <li><strong>智能检测老板靠近</strong>：结合工位摄像头与 Wi-Fi 探针（需企业授权），在老板距离你 3 米内时自动切换屏幕到代码/文档页，并推送提醒：「注意，注意。」</li>
+        <li><strong>摸鱼时长统计</strong>：每日/每周「有效摸鱼时长」可视化，支持与同部门同事匿名对比，激励你在不卷的前提下保持健康摸鱼。</li>
+        <li><strong>番茄钟联动</strong>：25 分钟专注摸鱼 + 5 分钟休息，科学分配「刷微博」与「接水」时间。</li>
+      </ul>
+      <h2>适用场景</h2>
+      <p>需要写周报但不知道写啥、需要证明自己在岗但确实在刷手机、需要和同事比谁更会「装忙」的各类互联网/传统企业员工。本产品为虚构创作，如有雷同，说明贵司也需要这样一款产品——但我们不负责真的开发。</p>
+      <p class="disclaimer">※ 本产品介绍纯属搞笑。我们不鼓励上班摸鱼，只鼓励在合法合规的前提下，用幽默化解打工人的精神内耗。</p>
+    </div>
+  </main>
+  <script>
+    (function(){
+      var btn=document.querySelector(".nav-burger"), links=document.querySelector(".nav-links");
+      if(!btn||!links)return;
+      btn.addEventListener("click",function(){ document.body.classList.toggle("nav-open"); });
+      links.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ document.body.classList.remove("nav-open"); }); });
+      window.addEventListener("resize",function(){ if(window.innerWidth>640) document.body.classList.remove("nav-open"); });
+    })();
+  </script>
+</body>
+</html>

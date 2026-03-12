@@ -210,12 +210,92 @@
       gap: 16px;
     }
 
+    .product-card-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card-link:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-strong);
+    }
+
     .product-card {
       background: #ffffff;
       border-radius: var(--radius-md);
       border: 1px solid rgba(229, 231, 235, 0.95);
-      padding: 12px 12px 10px;
+      padding: 14px 14px 12px;
       font-size: 12px;
+      height: 100%;
+      transition: border-color 0.2s ease;
+    }
+
+    .product-card-link:hover .product-card {
+      border-color: rgba(255, 122, 0, 0.35);
+    }
+
+    .product-logo-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .product-logo-wrap.logo-meeting {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    }
+
+    .product-logo-wrap.logo-moyu {
+      background: linear-gradient(135deg, #14b8a6, #0d9488);
+    }
+
+    .product-logo-wrap.logo-okr {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+    }
+
+    .product-logo-wrap.logo-doc {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    .product-logo-wrap.logo-expand {
+      background: linear-gradient(135deg, #ec4899, #db2777);
+    }
+
+    .product-logo-wrap.logo-radio {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    }
+
+    .product-logo-wrap.logo-hr {
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+
+    .product-group {
+      margin-top: 36px;
+    }
+
+    .product-group:first-of-type {
+      margin-top: 24px;
+    }
+
+    .group-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(255, 122, 0, 0.25);
+      display: inline-block;
     }
 
     .product-label {
@@ -345,42 +425,111 @@
         </p>
       </div>
 
-      <div class="products-grid">
-        <div class="product-card">
-          <div class="product-label">旗舰级产品</div>
-          <div class="product-name">「阿巴云会议」</div>
-          <p>
-            一款会自动生成会议纪要的会议工具，  
-            内容只有四个字：大家继续阿巴。
-          </p>
-          <div class="product-pill-row">
-            <div class="product-pill">支持 10 小时连轴开会</div>
-            <div class="product-pill">自动识别谁在摸鱼</div>
-          </div>
+      <div class="product-group">
+        <h2 class="group-title">Productivity & Collaboration</h2>
+        <div class="products-grid">
+          <a href="/product-meeting" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-meeting" aria-hidden="true">会</div>
+              <div class="product-label">旗舰级</div>
+              <div class="product-name">「阿巴云会议」</div>
+              <p>自动生成会议纪要，内容只有四个字：大家继续阿巴。支持 10 小时连轴开会、识别谁在摸鱼。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">会议纪要</span>
+                <span class="product-pill">摸鱼识别</span>
+              </div>
+            </div>
+          </a>
+          <a href="/product-moyu" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-moyu" aria-hidden="true">摸</div>
+              <div class="product-label">协同办公</div>
+              <div class="product-name">「摸鱼协作云」</div>
+              <p>专为「假装很忙」设计的协作平台，一键生成工作日报、智能检测老板靠近。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">日报生成</span>
+                <span class="product-pill">老板雷达</span>
+              </div>
+            </div>
+          </a>
+          <a href="/product-doc" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-doc" aria-hidden="true">文</div>
+              <div class="product-label">文档协作</div>
+              <div class="product-name">「阿巴文档」</div>
+              <p>多人同时编辑同一份文档，自动将分歧段落标记为「待拉齐」，支持一键替换成「先这样」。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">实时协作</span>
+                <span class="product-pill">冲突化解</span>
+              </div>
+            </div>
+          </a>
         </div>
-        <div class="product-card">
-          <div class="product-label">协同办公</div>
-          <div class="product-name">「摸鱼协作云」</div>
-          <p>
-            专为上班时间精神出走设计的协作平台，  
-            统一管理你所有「假装很忙」的行为日志。
-          </p>
-          <div class="product-pill-row">
-            <div class="product-pill">一键生成工作日报</div>
-            <div class="product-pill">智能检测老板靠近</div>
-          </div>
+      </div>
+
+      <div class="product-group">
+        <h2 class="group-title">AI & Intelligence</h2>
+        <div class="products-grid">
+          <a href="/product-okr" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-okr" aria-hidden="true">O</div>
+              <div class="product-label">AI 系列</div>
+              <div class="product-name">「OKR 生成大师」</div>
+              <p>输入模糊想法，AI 生成「看起来超厉害、实际上不知所云」的年度 OKR，自动对齐集团战略。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">战略对齐</span>
+                <span class="product-pill">无意义形容词</span>
+              </div>
+            </div>
+          </a>
+          <a href="/product-expand" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-expand" aria-hidden="true">扩</div>
+              <div class="product-label">AI 写作</div>
+              <div class="product-name">「需求扩写器」</div>
+              <p>一句话需求秒变 3 页 PRD，自动补充「背景」「目标」「验收标准」「风险与预案」等章节。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">PRD 生成</span>
+                <span class="product-pill">废话文学</span>
+              </div>
+            </div>
+          </a>
         </div>
-        <div class="product-card">
-          <div class="product-label">AI 系列</div>
-          <div class="product-name">「OKR 生成大师」</div>
-          <p>
-            输入一个模糊想法，AI 自动为你生成  
-            「看起来超厉害、实际上不知所云」的年度 OKR。
-          </p>
-          <div class="product-pill-row">
-            <div class="product-pill">支持一键对齐集团战略</div>
-            <div class="product-pill">自动补充无意义形容词</div>
-          </div>
+      </div>
+
+      <div class="product-group">
+        <h2 class="group-title">Media & Entertainment</h2>
+        <div class="products-grid">
+          <a href="/product-radio" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-radio" aria-hidden="true">🎧</div>
+              <div class="product-label">音频</div>
+              <div class="product-name">「摸鱼电台」</div>
+              <p>白噪音 + 伪会议录音 + 键盘敲击声，戴上耳机即可进入「我在认真干活」的沉浸模式。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">白噪音</span>
+                <span class="product-pill">会议 BGM</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-group">
+        <h2 class="group-title">Enterprise Solutions</h2>
+        <div class="products-grid">
+          <a href="/careers" class="product-card-link">
+            <div class="product-card">
+              <div class="product-logo-wrap logo-hr" aria-hidden="true">聘</div>
+              <div class="product-label">招聘</div>
+              <div class="product-name">「阿巴招聘」</div>
+              <p>官方招聘通道，高级阿巴工程师、首席摸鱼官虚位以待。投递即送搞笑 Offer，先到先得。</p>
+              <div class="product-pill-row">
+                <span class="product-pill">校招 / 实习</span>
+                <span class="product-pill">Offer 发放</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>

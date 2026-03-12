@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>需求扩写器 - 阿巴阿巴互联网集团</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f5f5f7; --accent: #ff6a00; --accent-2: #ff9f1a; --text-main: #1f2933; --text-sub: #6b7280; --border-soft: #e5e7eb; --radius-lg: 18px; --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12); }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    .page-wrapper { max-width: 720px; margin: 0 auto; padding: 18px 16px 40px; }
+    .nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: rgba(255,255,255,0.96); border-bottom: 1px solid var(--border-soft); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 34px; height: 34px; border-radius: 16px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; }
+    .brand-text-main { font-size: 18px; font-weight: 700; color: #111827; }
+    .nav-links { display: flex; gap: 18px; font-size: 13px; }
+    .nav-link { padding: 6px 10px; border-radius: 999px; color: var(--text-sub); }
+    .nav-link:hover { color: var(--accent); }
+    .nav-link.nav-cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-weight: 600; border: none; }
+    .nav-burger { display: none; margin-left: auto; border: 1px solid var(--border-soft); background: #fff; border-radius: 12px; padding: 8px 10px; cursor: pointer; }
+    .nav-burger-lines { width: 18px; height: 12px; position: relative; display: inline-block; }
+    .nav-burger-lines span { position: absolute; left: 0; right: 0; height: 2px; border-radius: 999px; background: #111827; }
+    .nav-burger-lines span:nth-child(1) { top: 0; } .nav-burger-lines span:nth-child(2) { top: 5px; } .nav-burger-lines span:nth-child(3) { top: 10px; }
+    @media (max-width: 640px) { .nav-inner { flex-wrap: wrap; align-items: center; } .nav-links { display: none; width: 100%; margin-top: 10px; flex-direction: column; padding: 10px; border-radius: 16px; background: #fff; border: 1px solid var(--border-soft); } body.nav-open .nav-links { display: flex; } .nav-burger { display: inline-flex; } }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
+    .back-link:hover { color: var(--accent); }
+    .product-hero { text-align: center; margin-bottom: 28px; }
+    .product-logo-large { width: 80px; height: 80px; border-radius: 22px; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800; color: #fff; box-shadow: 0 12px 28px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ec4899, #db2777); }
+    .product-hero h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .product-hero .tagline { font-size: 14px; color: var(--text-sub); }
+    .product-body { background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border-soft); padding: 20px 22px; box-shadow: var(--shadow-soft); font-size: 14px; }
+    .product-body h2 { font-size: 16px; font-weight: 600; margin: 18px 0 8px; color: #111827; }
+    .product-body h2:first-child { margin-top: 0; }
+    .product-body p { margin-bottom: 10px; color: var(--text-sub); }
+    .product-body ul { margin: 8px 0 12px 20px; color: var(--text-sub); }
+    .product-body li { margin-bottom: 4px; }
+    .product-body .disclaimer { font-size: 12px; color: var(--text-sub); opacity: 0.9; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand"><div class="brand-logo">A</div><span class="brand-text-main">阿巴阿巴互联网集团</span></a>
+      <button class="nav-burger" type="button" aria-label="打开菜单"><span class="nav-burger-lines"><span></span><span></span><span></span></span></button>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">首页</a>
+        <a href="/about" class="nav-link">关于阿巴</a>
+        <a href="/products" class="nav-link">产品宇宙</a>
+        <a href="/careers" class="nav-link">加入我们</a>
+        <a href="/contact" class="nav-link nav-cta">联系我们</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page-wrapper">
+    <a href="/products" class="back-link">← 返回产品宇宙</a>
+    <div class="product-hero">
+      <div class="product-logo-large" aria-hidden="true">扩</div>
+      <h1>需求扩写器</h1>
+      <p class="tagline">AI 与智能 · 一句话变 3 页 PRD</p>
+    </div>
+    <div class="product-body">
+      <h2>产品简介</h2>
+      <p>需求扩写器专治「需求只有一句话但老板要 PRD」的痛点。输入任意一句模糊想法，AI 自动生成完整 PRD 结构：背景与目标、用户故事、功能清单、验收标准、风险与预案、排期建议……字数不够就自动补充「深度赋能」「闭环」「抓手」「沉淀」等废话文学，确保页数达标、评审一次过。</p>
+      <h2>核心能力</h2>
+      <ul>
+        <li><strong>PRD 生成</strong>：一键生成「一、背景 二、目标 三、范围 四、方案 五、验收 六、风险」等章节，每章自动填满 3 段以上。</li>
+        <li><strong>废话文学</strong>：支持选择风格：「互联网黑话」「国企汇报」「投资人话术」「技术评审专用」。</li>
+        <li><strong>版本迭代</strong>：根据评审意见自动扩写，例如「这里再细化一下」→ 自动插入 500 字「细化」段落。</li>
+        <li><strong>多语言 PRD</strong>：中英双语一键生成，方便「对齐海外团队」时直接转发，反正大家都不细看。</li>
+      </ul>
+      <h2>适用场景</h2>
+      <p>需求评审前赶 PRD、老板临时要文档、以及任何「先有一版再改」的场合。本产品为虚构创作，如有雷同，建议直接复制同事的历史 PRD 改标题，效果相近。</p>
+      <p class="disclaimer">※ 本产品介绍纯属搞笑，不构成任何真实产品承诺。</p>
+    </div>
+  </main>
+  <script>
+    (function(){ var btn=document.querySelector(".nav-burger"), links=document.querySelector(".nav-links"); if(!btn||!links)return; btn.addEventListener("click",function(){ document.body.classList.toggle("nav-open"); }); links.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ document.body.classList.remove("nav-open"); }); }); window.addEventListener("resize",function(){ if(window.innerWidth>640) document.body.classList.remove("nav-open"); }); })();
+  </script>
+</body>
+</html>
