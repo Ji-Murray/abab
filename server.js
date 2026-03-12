@@ -261,7 +261,86 @@ app.post("/api/apply", async (req, res) => {
   const salaryK = Math.floor(Math.random() * (10000 - 100 + 1)) + 100; // 100k ~ 10000k 整数
   const baseSalary = `${salaryK}k/月 × 20 薪`;
 
-  const plainText = [
+  // 限定版 Offer：10% 概率触发
+  const isLimited = Math.random() < 0.1;
+  const offerId = `ABAB-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+
+  let plainText;
+  let htmlContent;
+  let subject;
+
+  if (isLimited) {
+    subject = `【录用意向书】阿巴阿巴互联网集团 - ${displayPosition} · Limited Offer`;
+    plainText = [
+      `尊敬的 ${displayName}：`,
+      "",
+      "恭喜您通过阿巴阿巴互联网集团的选拔，我们正式向您发出录用意向（限定版）。",
+      "",
+      `录用岗位：${displayPosition}`,
+      `薪资结构：${baseSalary}`,
+      `Offer 编号：${offerId}`,
+      "",
+      "本邮件为限定版创意 Offer，不构成真实劳动关系。",
+      "—— 阿巴阿巴互联网集团 · 人力资源部"
+    ].join("\n");
+
+    htmlContent = `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;padding:28px 16px;">
+      <table width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+        <tr>
+          <td style="background:#0d0d0d;padding:24px 28px;color:#ffffff;">
+            <table width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <div style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);margin-bottom:4px;">ABAB INTERNET HOLDINGS</div>
+                  <div style="font-size:20px;font-weight:700;letter-spacing:0.05em;">OFFER LETTER</div>
+                  <div style="font-size:12px;margin-top:6px;color:#ff6a00;">限定版 · Limited Edition</div>
+                </td>
+                <td align="right" style="font-size:11px;color:rgba(255,255,255,0.6);">${offerId}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:28px 28px 24px;">
+            <p style="margin:0 0 20px 0;font-size:15px;color:#1f2933;line-height:1.7;">尊敬的 <strong>${displayName}</strong>：</p>
+            <p style="margin:0 0 24px 0;font-size:14px;color:#374151;line-height:1.75;">
+              恭喜您通过阿巴阿巴互联网集团 2026 年度招聘的选拔与评估，我们诚挚地向您发出录用意向。  
+              请您查阅以下录用信息，本邮件为<strong>限定版 Offer</strong>，版式仅供娱乐，不构成真实劳动关系。
+            </p>
+            <table width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb;border-radius:10px;border-collapse:collapse;font-size:13px;">
+              <tr style="background:#f9fafb;">
+                <td style="padding:12px 16px;color:#6b7280;width:100px;">录用岗位</td>
+                <td style="padding:12px 16px;color:#111827;font-weight:600;">${displayPosition}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;color:#6b7280;">薪资结构</td>
+                <td style="padding:12px 16px;color:#111827;"><strong style="color:#ff6a00;">${baseSalary}</strong></td>
+              </tr>
+              <tr style="background:#f9fafb;">
+                <td style="padding:12px 16px;color:#6b7280;">Offer 编号</td>
+                <td style="padding:12px 16px;color:#6b7280;font-family:monospace;">${offerId}</td>
+              </tr>
+            </table>
+            ${story ? `<p style="margin:20px 0 0 0;font-size:12px;color:#6b7280;">您提交的「最能阿巴」经历已收录：<span style="color:#4b5563;">${String(story).replace(/</g, "&lt;").replace(/>/g, "&gt;").slice(0, 80)}${String(story).length > 80 ? "…" : ""}</span></p>` : ""}
+            <p style="margin:24px 0 0 0;font-size:12px;color:#9ca3af;line-height:1.6;">
+              本录用意向书为阿巴阿巴互联网集团创意 Offer（限定版），不具备法律效力。  
+              若您会心一笑，即视为已签收本 Offer。
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 28px 20px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af;background:#fafafa;">
+            阿巴阿巴互联网集团 · 人力资源部 · 虚构招聘中心<br />
+            本邮件由系统自动发送，请勿直接回复。
+          </td>
+        </tr>
+      </table>
+    </div>
+    `;
+  } else {
+    subject = `【阿巴阿巴】恭喜你被录用为：${displayPosition}`;
+    plainText = [
     `${displayName} 你好：`,
     "",
     `恭喜你，在阿巴阿巴互联网集团的「${displayPosition}」岗位中，`,
@@ -275,7 +354,7 @@ app.post("/api/apply", async (req, res) => {
     "—— 阿巴阿巴互联网集团 · 虚构 HR 中心"
   ].join("\n");
 
-  const htmlContent = `
+  htmlContent = `
   <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f7;padding:24px;">
     <table width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:16px;border:1px solid #e5e7eb;box-shadow:0 18px 40px rgba(15,23,42,0.12);overflow:hidden;">
       <tr>
@@ -336,12 +415,13 @@ app.post("/api/apply", async (req, res) => {
     </table>
   </div>
   `;
+  }
 
   const mailOptions = {
     // 发件人必须与 SMTP 登录账号一致，否则服务端会 553 拒绝
     from: `"阿巴阿巴互联网集团 HR" <${SMTP_FROM}>`,
     to: cleanEmail,
-    subject: `【阿巴阿巴】恭喜你被录用为：${displayPosition}`,
+    subject,
     text: plainText,
     html: htmlContent
   };
@@ -350,8 +430,8 @@ app.post("/api/apply", async (req, res) => {
     await transporter.sendMail(mailOptions);
     // 发送成功：扣减 offer 并持久化
     offerState = writeOfferState({ offersRemaining: (offerState.offersRemaining || 0) - 1 });
-    // 成功后跳转回首页，并带上成功标记
-    res.redirect(`/aba-aba-company.html?applySuccess=1&offersLeft=${encodeURIComponent(String(offerState.offersRemaining))}`);
+    const limitedParam = isLimited ? "&limited=1" : "";
+    res.redirect(`/aba-aba-company.html?applySuccess=1${limitedParam}&offersLeft=${encodeURIComponent(String(offerState.offersRemaining))}`);
   } catch (err) {
     console.error("发送邮件失败:", err);
     // 失败也跳回首页，只是带上错误标记

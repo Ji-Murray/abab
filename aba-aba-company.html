@@ -1185,8 +1185,9 @@
       const title = document.createElement("div");
       title.className = "toast-content-title";
       const offersLeft = params.get("offersLeft");
+      const isLimited = params.get("limited") === "1";
       if (type === "success") {
-        title.textContent = "投递成功 · 阿巴 Offer 已发出";
+        title.textContent = isLimited ? "恭喜 · 你获得了限定版 Offer" : "投递成功 · 阿巴 Offer 已发出";
       } else if (params.get("applySoldOut") === "1") {
         title.textContent = "投递关闭 · Offer 已发完";
       } else if (params.get("applyInvalidEmail") === "1") {
@@ -1201,7 +1202,9 @@
         const leftNum = Number(offersLeft);
         const leftText = Number.isFinite(leftNum) ? `当前剩余 Offer：${leftNum}` : "";
         body.textContent =
-          "请查收你的邮箱，查看那封高薪阿巴 Offer（如未收到，多半是被邮箱吃掉了）。" +
+          (isLimited
+            ? "邮件已发出，为字节/腾讯风格的限定版录用意向书，请查收邮箱。"
+            : "请查收你的邮箱，查看那封高薪阿巴 Offer（如未收到，多半是被邮箱吃掉了）。") +
           (leftText ? `  ${leftText}` : "");
       } else if (params.get("applySoldOut") === "1") {
         body.textContent = "Offer 数量已发完，投递通道已关闭。";
