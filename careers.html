@@ -110,6 +110,42 @@
       font-size: 13px;
     }
 
+    .nav-burger {
+      display: none;
+      margin-left: auto;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #111827;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-burger-lines {
+      width: 18px;
+      height: 12px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-burger-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: #111827;
+      transition: transform 0.15s ease, top 0.15s ease, opacity 0.15s ease;
+    }
+
+    .nav-burger-lines span:nth-child(1) { top: 0; }
+    .nav-burger-lines span:nth-child(2) { top: 5px; }
+    .nav-burger-lines span:nth-child(3) { top: 10px; }
+
     .nav-link {
       padding: 6px 10px;
       border-radius: 999px;
@@ -402,21 +438,151 @@
     }
 
     @media (max-width: 900px) {
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .section-note {
+        text-align: left;
+        max-width: none;
+      }
+
       .jobs-layout {
         grid-template-columns: minmax(0, 1fr);
+      }
+
+      .jobs-list {
+        max-height: none;
       }
     }
 
     @media (max-width: 640px) {
       .nav-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
       }
 
       .nav-links {
+        display: none;
+        width: 100%;
+        margin-top: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
+      }
+
+      body.nav-open .nav-links {
+        display: flex;
+      }
+
+      .nav-link {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 12px;
+      }
+
+      .nav-link.nav-cta {
+        text-align: center;
+      }
+
+      .nav-burger {
+        display: inline-flex;
+      }
+
+      body.nav-open .nav-burger-lines span:nth-child(1) { top: 5px; transform: rotate(45deg); }
+      body.nav-open .nav-burger-lines span:nth-child(2) { opacity: 0; }
+      body.nav-open .nav-burger-lines span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+
+      section {
+        margin-top: 28px;
+      }
+
+      .section-title {
+        font-size: 18px;
+        line-height: 1.25;
+        letter-spacing: 0.02em;
+      }
+
+      .tab-switch {
         width: 100%;
         justify-content: space-between;
-        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 8px 10px;
+      }
+
+      .city-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+      }
+
+      .city-chip {
+        white-space: nowrap;
+        padding: 6px 10px;
+      }
+
+      .job-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .job-title {
+        font-size: 14px;
+      }
+
+      .job-tag {
+        align-self: flex-start;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      select,
+      textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      label {
+        font-size: 12px;
+      }
+
+      .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .form-legal {
+        max-width: none;
+      }
+
+      .btn-submit {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .page-wrapper {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .nav-links {
+        gap: 10px;
       }
     }
   </style>
@@ -431,7 +597,12 @@
           <div class="brand-text-sub">Abba Abba Internet Holdings · 永远在开会</div>
         </div>
       </div>
-      <nav class="nav-links">
+      <button class="nav-burger" type="button" aria-label="打开导航菜单" aria-expanded="false">
+        <span class="nav-burger-lines" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+      <nav class="nav-links" aria-label="主导航">
         <a href="/" class="nav-link">首页</a>
         <a href="/about" class="nav-link">关于阿巴</a>
         <a href="/products" class="nav-link">产品宇宙</a>
@@ -716,6 +887,32 @@
   </main>
 
   <script>
+    // 移动端汉堡菜单
+    (function () {
+      const btn = document.querySelector(".nav-burger");
+      const links = document.querySelector(".nav-links");
+      if (!btn || !links) return;
+
+      function setOpen(next) {
+        document.body.classList.toggle("nav-open", next);
+        btn.setAttribute("aria-expanded", next ? "true" : "false");
+        btn.setAttribute("aria-label", next ? "关闭导航菜单" : "打开导航菜单");
+      }
+
+      btn.addEventListener("click", () => {
+        setOpen(!document.body.classList.contains("nav-open"));
+      });
+
+      links.addEventListener("click", (e) => {
+        const a = e.target && e.target.closest ? e.target.closest("a") : null;
+        if (a) setOpen(false);
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 640) setOpen(false);
+      });
+    })();
+
     // Tab 切换：校招 / 实习
     const tabButtons = document.querySelectorAll(".tab-btn");
     const campusSection = document.getElementById("campus-section");
