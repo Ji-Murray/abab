@@ -257,6 +257,84 @@
       color: var(--text-sub);
     }
 
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .social-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .social-trigger {
+      border-radius: 999px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+      padding: 6px 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+    }
+
+    .social-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .social-icon--xhs {
+      background: #ff2442;
+    }
+
+    .social-icon--douyin {
+      background: radial-gradient(circle at 0 0, #00f5ff, #ff0050);
+    }
+
+    .social-trigger:hover {
+      background: #f9fafb;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .social-preview {
+      position: absolute;
+      left: 0;
+      top: 110%;
+      margin-top: 6px;
+      padding: 8px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      display: none;
+      z-index: 30;
+    }
+
+    .social-preview img {
+      display: block;
+      max-width: 220px;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .social-item:hover .social-preview {
+      display: block;
+    }
+
     .footnote {
       margin-top: 30px;
       font-size: 11px;
@@ -389,6 +467,54 @@
           <div class="chip-row" style="margin-top:8px;">
             <span class="chip">Made with 0 份融资，100% 好心情</span>
             <span class="chip">Powered by 互联网人的集体吐槽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 20px; text-align: center;">
+        <div class="card-title" style="margin-bottom: 4px;">官方账号 · 扫码找我们阿巴</div>
+        <p style="font-size: 11px; color: var(--text-sub);">
+          在小红书 / 抖音上也能遇见阿巴阿巴，扫码即可直达我们的宇宙据点。
+        </p>
+        <div class="social-row" style="justify-content: center; margin-top: 10px;">
+          <div class="social-item">
+            <button type="button" class="social-trigger">
+              <span class="social-icon social-icon--xhs">小</span>
+              小红书 · CEO
+            </button>
+            <div class="social-preview">
+              <img src="/media/CEO.jpg" alt="小红书 CEO 二维码" />
+            </div>
+          </div>
+
+          <div class="social-item">
+            <button type="button" class="social-trigger">
+              <span class="social-icon social-icon--xhs">小</span>
+              小红书 · CFO
+            </button>
+            <div class="social-preview">
+              <img src="/media/CFO.jpg" alt="小红书 CFO 二维码" />
+            </div>
+          </div>
+
+          <div class="social-item">
+            <button type="button" class="social-trigger">
+              <span class="social-icon social-icon--xhs">小</span>
+              小红书 · 官方
+            </button>
+            <div class="social-preview">
+              <img src="/media/official.jpg" alt="小红书官方账号二维码" />
+            </div>
+          </div>
+
+          <div class="social-item">
+            <button type="button" class="social-trigger">
+              <span class="social-icon social-icon--douyin">抖</span>
+              抖音 · 官方
+            </button>
+            <div class="social-preview">
+              <img src="/media/douyin.jpg" alt="抖音 ABAB.Limited 二维码" />
+            </div>
           </div>
         </div>
       </div>
