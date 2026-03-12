@@ -49,8 +49,8 @@ const SMTP_SECURE =
   typeof process.env.SMTP_SECURE === "string"
     ? ["1", "true", "yes", "on"].includes(process.env.SMTP_SECURE.toLowerCase())
     : false;
-// From 写死：部分 SMTP（如 MailerSend）要求该地址已验证
-const SMTP_FROM = "abab.limited@jzh666.store";
+// 发件邮箱：多数 SMTP 要求与登录用户一致，这里直接用 SMTP_USER
+const SMTP_FROM = SMTP_USER;
 
 if (!SMTP_USER || !SMTP_PASS) {
   console.warn(
