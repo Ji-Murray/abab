@@ -3,6 +3,8 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
+const fs = require("fs");
+const dns = require("dns");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,6 +39,15 @@ app.get("/contact", (req, res) => {
 
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
+const SMTP_HOST = process.env.SMTP_HOST || "smtp.gmail.com";
+// 端口写死：587（STARTTLS）
+const SMTP_PORT = 587;
+const SMTP_SECURE =
+  typeof process.env.SMTP_SECURE === "string"
+    ? ["1", "true", "yes", "on"].includes(process.env.SMTP_SECURE.toLowerCase())
+    : false;
+// From 写死：部分 SMTP（如 MailerSend）要求该地址已验证
+const SMTP_FROM = "abab.limited@jzh666.store";
 
 if (!SMTP_USER || !SMTP_PASS) {
   console.warn(
@@ -44,16 +55,105 @@ if (!SMTP_USER || !SMTP_PASS) {
   );
 }
 
-// 使用 Gmail SMTP（推荐搭配应用专用密码）
-// 需要在 Gmail 账号里开启双重验证，并创建 "App password"
+// 通用 SMTP（默认仍是 Gmail SMTP；也支持 MailerSend 等）
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // 587 使用 STARTTLS（推荐云环境）
+  host: SMTP_HOST,
+  port: SMTP_PORT,
+  secure: SMTP_SECURE, // 465 通常为 true；587/2525 通常为 false（STARTTLS）
+  requireTLS: !SMTP_SECURE && SMTP_PORT === 587,
   auth: {
-    user: SMTP_USER, // 例如 yourname@gmail.com
-    pass: SMTP_PASS  // Gmail 生成的应用专用密码，不是登录密码
+    user: SMTP_USER,
+    pass: SMTP_PASS
   }
+});
+
+// -----------------------------
+// 反刷保护 + Offer 余量（轻量版）
+// -----------------------------
+const OFFER_STATE_FILE = path.join(__dirname, "offer-state.json");
+const OFFER_TOTAL_DEFAULT = Number.parseInt(process.env.OFFER_TOTAL || "", 10);
+const OFFER_TOTAL = Number.isFinite(OFFER_TOTAL_DEFAULT) && OFFER_TOTAL_DEFAULT > 0 ? OFFER_TOTAL_DEFAULT : 200;
+
+function todayKeyUTC() {
+  const d = new Date();
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(d.getUTCDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function readOfferState() {
+  try {
+    const raw = fs.readFileSync(OFFER_STATE_FILE, "utf8");
+    const parsed = JSON.parse(raw);
+    const remaining = Number(parsed?.offersRemaining);
+    if (Number.isFinite(remaining) && remaining >= 0) {
+      return { offersRemaining: remaining, updatedAt: parsed?.updatedAt || null };
+    }
+  } catch (_) {}
+  return { offersRemaining: OFFER_TOTAL, updatedAt: null };
+}
+
+function writeOfferState(nextState) {
+  const safe = {
+    offersRemaining: Math.max(0, Number(nextState?.offersRemaining) || 0),
+    updatedAt: new Date().toISOString()
+  };
+  const tmp = `${OFFER_STATE_FILE}.tmp`;
+  fs.writeFileSync(tmp, JSON.stringify(safe, null, 2), "utf8");
+  fs.renameSync(tmp, OFFER_STATE_FILE);
+  return safe;
+}
+
+let offerState = readOfferState();
+
+// 简单限流（内存版）：适合小站点/单进程。多实例部署需换 Redis 等。
+const rateBuckets = new Map(); // key -> { count, resetAt }
+function takeToken(key, limit, windowMs) {
+  const now = Date.now();
+  const cur = rateBuckets.get(key);
+  if (!cur || cur.resetAt <= now) {
+    rateBuckets.set(key, { count: 1, resetAt: now + windowMs });
+    return { ok: true, remaining: limit - 1, resetAt: now + windowMs };
+  }
+  if (cur.count >= limit) return { ok: false, remaining: 0, resetAt: cur.resetAt };
+  cur.count += 1;
+  return { ok: true, remaining: limit - cur.count, resetAt: cur.resetAt };
+}
+
+function getClientIp(req) {
+  const xf = req.headers["x-forwarded-for"];
+  if (typeof xf === "string" && xf.trim()) return xf.split(",")[0].trim();
+  const xr = req.headers["x-real-ip"];
+  if (typeof xr === "string" && xr.trim()) return xr.trim();
+  return req.ip || req.connection?.remoteAddress || "unknown";
+}
+
+function normalizeEmail(input) {
+  return String(input || "").trim().toLowerCase();
+}
+
+function isEmailSyntaxValid(email) {
+  // 够用的语法检查：避免明显错误地址触发 SMTP 尝试
+  if (!email || email.length > 254) return false;
+  const re = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/i;
+  return re.test(email);
+}
+
+async function hasMxRecord(domain, timeoutMs = 1200) {
+  const p = dns.promises.resolveMx(domain);
+  const t = new Promise((_, reject) => setTimeout(() => reject(new Error("DNS_TIMEOUT")), timeoutMs));
+  try {
+    const records = await Promise.race([p, t]);
+    return Array.isArray(records) && records.length > 0;
+  } catch (_) {
+    return false;
+  }
+}
+
+app.get("/api/offer-status", (req, res) => {
+  // 仅返回剩余数量，不暴露限流/配额细节
+  res.json({ ok: true, offersRemaining: offerState.offersRemaining });
 });
 
 // Render/线上 SMTP 自检接口（建议配置 SMTP_TEST_TOKEN 防止被滥用）
@@ -95,8 +195,33 @@ app.post("/api/smtp-test", async (req, res) => {
 app.post("/api/apply", async (req, res) => {
   const { name, email, position, story } = req.body;
 
-  if (!email) {
-    return res.status(400).send("邮箱必填");
+  // Offer 已发完：直接关闭投递
+  if ((offerState?.offersRemaining ?? 0) <= 0) {
+    return res.redirect("/aba-aba-company.html?applySoldOut=1");
+  }
+
+  const clientIp = getClientIp(req);
+  const cleanEmail = normalizeEmail(email);
+
+  // 轻量防刷：同 IP 短时间 + 同 IP 每日 + 同邮箱每日
+  const day = todayKeyUTC();
+  const burst = takeToken(`ip:${clientIp}:m1`, 5, 60 * 1000); // 1 分钟 5 次
+  if (!burst.ok) return res.redirect("/aba-aba-company.html?applyRateLimited=1");
+  const ipDaily = takeToken(`ip:${clientIp}:d:${day}`, 25, 24 * 60 * 60 * 1000);
+  if (!ipDaily.ok) return res.redirect("/aba-aba-company.html?applyRateLimited=1");
+  const emailDaily = takeToken(`em:${cleanEmail}:d:${day}`, 3, 24 * 60 * 60 * 1000);
+  if (!emailDaily.ok) return res.redirect("/aba-aba-company.html?applyRateLimited=1");
+
+  if (!cleanEmail) return res.redirect("/aba-aba-company.html?applyInvalidEmail=1");
+  if (!isEmailSyntaxValid(cleanEmail)) return res.redirect("/aba-aba-company.html?applyInvalidEmail=1");
+
+  // DNS MX 校验：避免明显不存在的域名触发 SMTP 尝试
+  const domain = cleanEmail.split("@")[1];
+  const mxOk = await hasMxRecord(domain);
+  if (!mxOk) return res.redirect("/aba-aba-company.html?applyInvalidEmail=1");
+
+  if (!SMTP_USER || !SMTP_PASS) {
+    return res.redirect("/aba-aba-company.html?applyError=1");
   }
 
   const displayName = (name || "这位神秘阿巴友").trim();
@@ -181,8 +306,8 @@ app.post("/api/apply", async (req, res) => {
 
   const mailOptions = {
     // 发件人必须与 SMTP 登录账号一致，否则服务端会 553 拒绝
-    from: `"阿巴阿巴互联网集团 HR" <${process.env.SMTP_USER || "abab.limited@jzh666.store"}>`,
-    to: email,
+    from: `"阿巴阿巴互联网集团 HR" <${SMTP_FROM}>`,
+    to: cleanEmail,
     subject: `【阿巴阿巴】恭喜你被录用为：${displayPosition}`,
     text: plainText,
     html: htmlContent
@@ -190,8 +315,10 @@ app.post("/api/apply", async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
+    // 发送成功：扣减 offer 并持久化
+    offerState = writeOfferState({ offersRemaining: (offerState.offersRemaining || 0) - 1 });
     // 成功后跳转回首页，并带上成功标记
-    res.redirect("/aba-aba-company.html?applySuccess=1");
+    res.redirect(`/aba-aba-company.html?applySuccess=1&offersLeft=${encodeURIComponent(String(offerState.offersRemaining))}`);
   } catch (err) {
     console.error("发送邮件失败:", err);
     // 失败也跳回首页，只是带上错误标记

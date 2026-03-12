@@ -1060,6 +1060,9 @@
       let type = "";
       if (params.get("applySuccess") === "1") type = "success";
       if (params.get("applyError") === "1") type = "error";
+      if (params.get("applyInvalidEmail") === "1") type = "error";
+      if (params.get("applyRateLimited") === "1") type = "error";
+      if (params.get("applySoldOut") === "1") type = "error";
       if (!type) return;
 
       const toast = document.createElement("div");
@@ -1072,12 +1075,34 @@
       const content = document.createElement("div");
       const title = document.createElement("div");
       title.className = "toast-content-title";
-      title.textContent = type === "success" ? "投递成功 · 阿巴 Offer 已发出" : "投递失败 · 邮件发送异常";
+      const offersLeft = params.get("offersLeft");
+      if (type === "success") {
+        title.textContent = "投递成功 · 阿巴 Offer 已发出";
+      } else if (params.get("applySoldOut") === "1") {
+        title.textContent = "投递关闭 · Offer 已发完";
+      } else if (params.get("applyInvalidEmail") === "1") {
+        title.textContent = "投递失败 · 邮箱看起来不太对";
+      } else if (params.get("applyRateLimited") === "1") {
+        title.textContent = "投递受限 · 请求太频繁";
+      } else {
+        title.textContent = "投递失败 · 邮件发送异常";
+      }
       const body = document.createElement("div");
-      body.textContent =
-        type === "success"
-          ? "请查收你的邮箱，查看那封高薪阿巴 Offer（如未收到，多半是被邮箱吃掉了）。"
-          : "可能是邮箱 SMTP 配置问题，你可以稍后重试或检查后端日志。";
+      if (type === "success") {
+        const leftNum = Number(offersLeft);
+        const leftText = Number.isFinite(leftNum) ? `当前剩余 Offer：${leftNum}` : "";
+        body.textContent =
+          "请查收你的邮箱，查看那封高薪阿巴 Offer（如未收到，多半是被邮箱吃掉了）。" +
+          (leftText ? `  ${leftText}` : "");
+      } else if (params.get("applySoldOut") === "1") {
+        body.textContent = "Offer 数量已发完，投递通道已关闭。";
+      } else if (params.get("applyInvalidEmail") === "1") {
+        body.textContent = "请检查邮箱是否填写正确（我们会拦截明显错误的邮箱，避免浪费每日发信额度）。";
+      } else if (params.get("applyRateLimited") === "1") {
+        body.textContent = "为了防止恶意刷接口，当前已限制该 IP/邮箱的投递频率，请稍后再试。";
+      } else {
+        body.textContent = "可能是邮箱 SMTP 配置问题，你可以稍后重试或检查后端日志。";
+      }
       content.appendChild(title);
       content.appendChild(body);
 

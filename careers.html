@@ -465,8 +465,7 @@
           color: #9a3412;
         "
       >
-        今日阿巴 Offer 数量已全部发放完毕，请明天再来投递～  
-        <span style="color:#ea580c;font-weight:600;">感谢大家的热情与支持！</span>
+        温馨提示：本页面为搞笑虚构，不构成真实招聘或录用承诺。
       </div>
 
       <div class="tab-switch">
@@ -765,16 +764,7 @@
     setupCityFilter("campus-section");
     setupCityFilter("intern-section");
 
-    // 全局暂停投递：前端直接拦截，不再请求后端
-    (function () {
-      const form = document.getElementById("aba-application-form");
-      if (!form) return;
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        alert("今日阿巴 Offer 已全部发放完毕，请明天再来投递～\n感谢你的支持与参与！");
-        return false;
-      });
-    })();
+    // 表单直连后端，由后端负责校验/限流/offer 余量控制
   </script>
 </body>
 </html>
