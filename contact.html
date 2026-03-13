@@ -390,9 +390,27 @@
       body.nav-open .nav-burger-lines span:nth-child(2) { opacity: 0; }
       body.nav-open .nav-burger-lines span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
     }
+    #disclaimer-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.82); display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+    #disclaimer-overlay.hidden { display: none !important; }
+    .disclaimer-box { background: #fff; max-width: 520px; max-height: 88vh; overflow-y: auto; border-radius: 16px; padding: 28px 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); }
+    .disclaimer-box h2 { font-size: 20px; font-weight: 700; color: #b91c1c; margin-bottom: 16px; text-align: center; }
+    .disclaimer-box p { font-size: 14px; line-height: 1.75; color: #374151; margin-bottom: 12px; }
+    .disclaimer-box .disclaimer-btn { display: block; width: 100%; margin-top: 20px; padding: 14px 20px; font-size: 15px; font-weight: 600; color: #fff; background: linear-gradient(135deg,#ff6a00,#ff9f1a); border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 8px 24px rgba(255,106,0,0.4); }
+    .disclaimer-box .disclaimer-btn:hover { opacity: 0.95; transform: translateY(-1px); }
   </style>
 </head>
 <body>
+  <div id="disclaimer-overlay" class="disclaimer-overlay" role="dialog" aria-modal="true" aria-labelledby="disclaimer-title">
+    <div class="disclaimer-box">
+      <h2 id="disclaimer-title">⚠️ 免责声明</h2>
+      <p><strong>本网站为 parody / 搞笑 / 虚构创作，仅供娱乐，不构成任何正式招聘、录用、商业承诺或法律约束。</strong></p>
+      <p>本站所有内容（包括但不限于公司名称、岗位描述、Offer 邮件、产品介绍等）均为虚构或戏仿，与任何真实企业、品牌、个人无关联；不构成任何法律意义上的要约、合同或劳动关系。</p>
+      <p>如任何内容涉及或可能涉及第三方权益或知识产权，请通过本站「联系我们」渠道告知，我们将在核实后及时处理或删除。</p>
+      <p>您点击下方按钮即表示已阅读、理解并同意上述声明，自愿继续浏览；若不同意，请关闭本页面。</p>
+      <button type="button" class="disclaimer-btn" id="disclaimer-confirm">我已知晓，进入浏览</button>
+    </div>
+  </div>
+  <script>(function(){var o=document.getElementById("disclaimer-overlay"),b=document.getElementById("disclaimer-confirm");if(sessionStorage.getItem("abab_disclaimer_ack")==="1"){if(o)o.classList.add("hidden");return;}function ack(){sessionStorage.setItem("abab_disclaimer_ack","1");if(o)o.classList.add("hidden");}if(b)b.addEventListener("click",ack);})();</script>
   <header class="nav">
     <div class="nav-inner">
       <div class="brand">
