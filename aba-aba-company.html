@@ -1044,12 +1044,14 @@
     (function () {
       var overlay = document.getElementById("disclaimer-overlay");
       var btn = document.getElementById("disclaimer-confirm");
-      if (sessionStorage.getItem("abab_disclaimer_ack") === "1") {
+      var last = localStorage.getItem("abab_disclaimer_time");
+      var tenMin = 10 * 60 * 1000;
+      if (last && (Date.now() - parseInt(last, 10)) < tenMin) {
         if (overlay) overlay.classList.add("hidden");
         return;
       }
       function ack() {
-        sessionStorage.setItem("abab_disclaimer_ack", "1");
+        localStorage.setItem("abab_disclaimer_time", String(Date.now()));
         if (overlay) overlay.classList.add("hidden");
       }
       if (btn) btn.addEventListener("click", ack);

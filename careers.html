@@ -605,7 +605,7 @@
       <button type="button" class="disclaimer-btn" id="disclaimer-confirm">我已知晓，进入浏览</button>
     </div>
   </div>
-  <script>(function(){var o=document.getElementById("disclaimer-overlay"),b=document.getElementById("disclaimer-confirm");if(sessionStorage.getItem("abab_disclaimer_ack")==="1"){if(o)o.classList.add("hidden");return;}function ack(){sessionStorage.setItem("abab_disclaimer_ack","1");if(o)o.classList.add("hidden");}if(b)b.addEventListener("click",ack);})();</script>
+  <script>(function(){var o=document.getElementById("disclaimer-overlay"),b=document.getElementById("disclaimer-confirm");var t=localStorage.getItem("abab_disclaimer_time");if(t&&(Date.now()-parseInt(t,10))<600000){if(o)o.classList.add("hidden");return;}function ack(){localStorage.setItem("abab_disclaimer_time",String(Date.now()));if(o)o.classList.add("hidden");}if(b)b.addEventListener("click",ack);})();</script>
   <header class="nav">
     <div class="nav-inner">
       <div class="brand">

@@ -48,7 +48,7 @@
 </head>
 <body>
   <div id="disclaimer-overlay" class="disclaimer-overlay" role="dialog" aria-modal="true" aria-labelledby="disclaimer-title"><div class="disclaimer-box"><h2 id="disclaimer-title">⚠️ 免责声明</h2><p><strong>本网站为 parody / 搞笑 / 虚构创作，仅供娱乐，不构成任何正式招聘、录用、商业承诺或法律约束。</strong></p><p>本站所有内容均为虚构或戏仿，与任何真实企业、品牌、个人无关联；不构成任何法律意义上的要约、合同或劳动关系。如涉及第三方权益请通过「联系我们」告知。</p><p>点击下方按钮即表示已阅读并同意，自愿继续浏览。</p><button type="button" class="disclaimer-btn" id="disclaimer-confirm">我已知晓，进入浏览</button></div></div>
-  <script>(function(){var o=document.getElementById("disclaimer-overlay"),b=document.getElementById("disclaimer-confirm");if(sessionStorage.getItem("abab_disclaimer_ack")==="1"){if(o)o.classList.add("hidden");return;}function ack(){sessionStorage.setItem("abab_disclaimer_ack","1");if(o)o.classList.add("hidden");}if(b)b.addEventListener("click",ack);})();</script>
+  <script>(function(){var o=document.getElementById("disclaimer-overlay"),b=document.getElementById("disclaimer-confirm");var t=localStorage.getItem("abab_disclaimer_time");if(t&&(Date.now()-parseInt(t,10))<600000){if(o)o.classList.add("hidden");return;}function ack(){localStorage.setItem("abab_disclaimer_time",String(Date.now()));if(o)o.classList.add("hidden");}if(b)b.addEventListener("click",ack);})();</script>
   <header class="nav">
     <div class="nav-inner">
       <a href="/" class="brand"><div class="brand-logo">A</div><span class="brand-text-main">阿巴阿巴互联网集团</span></a>
